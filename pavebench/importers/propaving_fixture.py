@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import io
 import json
 import math
 import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
+
+from PIL import Image
 
 from ..geometry import interior_point
 
@@ -71,6 +74,55 @@ def _meters_extent(bbox: tuple[float, float, float, float]) -> tuple[float, floa
     width_m = (east - west) * 111_320 * math.cos(lat_mid)
     height_m = (north - south) * 111_320
     return width_m, height_m
+
+
+def _returned_bbox(
+    bbox: tuple[float, float, float, float], width: int, height: int,
+) -> tuple[float, float, float, float]:
+    """ArcGIS defaults to square imageSR units (degrees for our 4326 export).
+
+    Match ProPaving's computeArcgisReturnedBounds: expand, never crop. Ground
+    metres are not degrees, so the requested metre-sized raster changes extent.
+    For fetched images the service response below is authoritative.
+    """
+    west, south, east, north = bbox
+    cx, cy = (west + east) / 2, (south + north) / 2
+    dx, dy = east - west, north - south
+    ratio = width / height
+    if dx / dy > ratio:
+        dy = dx / ratio
+    else:
+        dx = dy * ratio
+    return cx - dx / 2, cy - dy / 2, cx + dx / 2, cy + dy / 2
+
+
+def _fetch_export(image_url: str) -> tuple[bytes, tuple, int, int, dict]:
+    """Read image and georeferencing from ONE export, rather than guessing its extent."""
+    metadata_url = image_url.replace("f=image", "f=json")
+    request = urllib.request.Request(metadata_url, headers={"User-Agent": "PaveBench/0.1"})
+    with urllib.request.urlopen(request, timeout=120) as response:
+        export = json.load(response)
+    if "error" in export:
+        raise RuntimeError("ImageServer export failed")
+    extent = export.get("extent", {})
+    sr = extent.get("spatialReference", {})
+    if sr.get("latestWkid", sr.get("wkid")) != 4326:
+        raise RuntimeError("ImageServer returned an unexpected spatial reference")
+    bbox = tuple(extent.get(k) for k in ("xmin", "ymin", "xmax", "ymax"))
+    if any(not isinstance(v, (int, float)) or not math.isfinite(v) for v in bbox):
+        raise RuntimeError("ImageServer returned an invalid extent")
+    if bbox[2] <= bbox[0] or bbox[3] <= bbox[1]:
+        raise RuntimeError("ImageServer returned an empty extent")
+    width, height = export.get("width"), export.get("height")
+    if not isinstance(width, int) or not isinstance(height, int) or min(width, height) <= 0:
+        raise RuntimeError("ImageServer returned invalid image dimensions")
+    image_request = urllib.request.Request(export["href"], headers={"User-Agent": "PaveBench/0.1"})
+    with urllib.request.urlopen(image_request, timeout=120) as response:
+        payload = response.read()
+    with Image.open(io.BytesIO(payload)) as image:
+        if image.size != (width, height):
+            raise RuntimeError("ImageServer image dimensions disagree with export metadata")
+    return payload, bbox, width, height, export
 
 
 def create_case_from_propaving(
@@ -139,7 +191,20 @@ def create_case_from_propaving(
     scale = min(1.0, max_pixels / max(width, height))
     width = max(1, round(width * scale))
     height = max(1, round(height * scale))
-    effective_gsd = round(((width_m / width) + (height_m / height)) / 2, 5)
+
+    requested_bbox = bbox
+    image_url = _export_image_url(imagery_source["imageServer"], bbox, width, height)
+    bbox = _returned_bbox(requested_bbox, width, height)
+    payload = None
+    export = None
+    if fetch:
+        payload, bbox, width, height, export = _fetch_export(image_url)
+    width_m, height_m = _meters_extent(bbox)
+    pixel_size_x, pixel_size_y = width_m / width, height_m / height
+    # Scalar compatibility with the evaluator: square of this value is pixel
+    # AREA. Keep the actual axis resolutions in metadata; pixels need not be
+    # square on the ground. Arithmetic-mean GSD silently biases square footage.
+    effective_gsd = math.sqrt(pixel_size_x * pixel_size_y)
 
     boundary_px = _project(boundary_lonlat, bbox, width, height)
     cutouts_px = [_project(ring, bbox, width, height) for ring in cutouts_lonlat]
@@ -157,17 +222,11 @@ def create_case_from_propaving(
     destination = Path(out_dir)
     destination.mkdir(parents=True, exist_ok=True)
 
-    image_url = _export_image_url(imagery_source["imageServer"], bbox, width, height)
     imagery_status = "declared_not_fetched"
     image_file: str | None = None
     if fetch:
-        request = urllib.request.Request(image_url, headers={"User-Agent": "PaveBench/0.1"})
-        with urllib.request.urlopen(request, timeout=120) as response:  # noqa: S310 (public gov ImageServer)
-            payload = response.read()
-        content_type = response.headers.get("Content-Type", "")
-        if "image" not in content_type:
-            raise RuntimeError(f"ImageServer did not return an image (Content-Type={content_type})")
         (destination / "image.png").write_bytes(payload)
+        (destination / "export-response.json").write_text(json.dumps(export, indent=2) + "\n")
         image_file = "image.png"
         imagery_status = "included_redistributable"
 
@@ -179,12 +238,15 @@ def create_case_from_propaving(
         "imageFile": image_file,
         "nativeGsdMeters": native_gsd,
         "exportGsdMeters": effective_gsd,
+        "pixelSizeMeters": {"x": pixel_size_x, "y": pixel_size_y},
         "vintage": imagery_source.get("vintage"),
         "license": imagery_source.get("license"),
         "redistributable": True,
         "imageryStatus": imagery_status,
         "bbox": {"west": bbox[0], "south": bbox[1], "east": bbox[2], "north": bbox[3]},
         "bboxSR": 4326,
+        "requestedBbox": dict(zip(("west", "south", "east", "north"), requested_bbox)),
+        "extentSource": "service_response" if fetch else "arcgis_default_aspect_ratio",
     }
 
     label_source = {

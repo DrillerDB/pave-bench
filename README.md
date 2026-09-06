@@ -143,6 +143,8 @@ baselines, ProPaving-fixture and human-trace case scaffolding, a leaderboard
 generator with the INSTANT badge, and documentation.
 
 The Justice case is `needs_gold_review` (Craig's trace was drawn on Google imagery
-and carries a ~2-3 m offset vs the ortho — see its `README.md`). It is not benchmark
-truth until reviewed. The path from one case to a publishable v1 is in
+and still needs alignment/scope review against the ortho). Its image export extent
+and pixel-area metadata were corrected on 2026-09-06; earlier scores must be
+recomputed — see its `README.md`. It is not benchmark truth until reviewed.
+The path from one case to a publishable v1 is in
 [docs/proving-instant-takeoff.md](docs/proving-instant-takeoff.md).

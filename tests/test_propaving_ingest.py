@@ -87,3 +87,69 @@ def test_ingest_requires_redistributable_flag(tmp_path):
     unflagged = {**COOK, "redistributable": False}
     with pytest.raises(ValueError, match="redistributable"):
         create_case_from_propaving(fixture, tmp_path / "c", "x", unflagged, fetch=False)
+
+
+def test_export_projection_uses_returned_extent_not_requested_extent(tmp_path):
+    """ArcGIS expands 4326 bounds to square degrees, not square ground metres.
+
+    At 41 degrees a metre-sized image needs a taller latitude extent. Ignoring
+    that expansion moved the Justice reference by tens of metres, and scored
+    correctly located model islands as completely missed.
+    """
+    import math
+
+    metadata = create_case_from_propaving(
+        _write_fixture(tmp_path), tmp_path / "case", "pb_synth", COOK,
+        export_gsd_meters=0.5, fetch=False,
+    )
+    b = metadata["imagery"]["bbox"]
+    w, h = metadata["imageSize"].values()
+    assert b["south"] < 40.9995
+    assert b["north"] > 41.0025
+    assert (b["east"] - b["west"]) / (b["north"] - b["south"]) == pytest.approx(w / h)
+    # Project the fixture's known first geographic vertex against the extent
+    # the image actually covers, not a reference derived from the output ring.
+    assert metadata["gold"]["boundary"][0][1] == pytest.approx(
+        (b["north"] - 41.0) / (b["north"] - b["south"]) * h, abs=0.001,
+    )
+    dx = (b["east"] - b["west"]) * 111320 * math.cos(math.radians(41.001)) / w
+    dy = (b["north"] - b["south"]) * 111320 / h
+    # Equivalent GSD must preserve pixel AREA; an arithmetic mean squared does not.
+    assert metadata["resolutionMetersPerPixel"] ** 2 == pytest.approx(dx * dy, rel=1e-4)
+
+
+@pytest.mark.parametrize("image_size", [(320, 640), (319, 640)])
+def test_fetched_case_uses_service_extent_and_checks_image_dimensions(tmp_path, monkeypatch, image_size):
+    import io
+    import urllib.request
+    from PIL import Image
+
+    # Different from both requested dimensions and the deterministic estimate:
+    # the response, not locally predicted framing, is authoritative.
+    export = {
+        "width": 320, "height": 640,
+        "extent": {"xmin": -88.004, "ymin": 40.998, "xmax": -87.998,
+                   "ymax": 41.004, "spatialReference": {"wkid": 4326}},
+        "href": "https://gis.example.gov/rendered.png",
+    }
+    png = io.BytesIO()
+    Image.new("RGB", image_size).save(png, format="PNG")
+    urls = []
+    def urlopen(request, timeout):
+        urls.append(request.full_url)
+        return io.BytesIO(json.dumps(export).encode() if "f=json" in request.full_url else png.getvalue())
+    monkeypatch.setattr(urllib.request, "urlopen", urlopen)
+    if image_size != (320, 640):
+        with pytest.raises(RuntimeError, match="dimensions disagree"):
+            create_case_from_propaving(_write_fixture(tmp_path), tmp_path / "case", "x", COOK)
+        assert not (tmp_path / "case" / "metadata.json").exists()
+        return
+    m = create_case_from_propaving(_write_fixture(tmp_path), tmp_path / "case", "x", COOK)
+    assert m["imageSize"] == {"width": 320, "height": 640}
+    assert m["imagery"]["bbox"]["south"] == 40.998
+    assert m["imagery"]["extentSource"] == "service_response"
+    assert m["gold"]["boundary"][0] == pytest.approx([106.667, 426.667], abs=0.001)
+    assert m["labelSource"]["reviewStatus"] == "needs_gold_review"
+    assert "f=json" in urls[0]
+    assert urls[1] == export["href"]
+    assert (tmp_path / "case" / "export-response.json").exists()

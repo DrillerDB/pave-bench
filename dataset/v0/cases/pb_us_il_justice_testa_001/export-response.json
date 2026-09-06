@@ -1,0 +1,16 @@
+{
+  "href": "https://gis.cookcountyil.gov/imagery/rest/directories/arcgisoutput/CookOrtho2025_ImageServer/_ags_05ec37f5_749f_4711_9c4b_b3468cfc908b.png",
+  "width": 1387,
+  "height": 1608,
+  "extent": {
+    "xmin": -87.91271111599342,
+    "ymin": 41.7555171623035,
+    "xmax": -87.91016527582268,
+    "ymax": 41.758468648240445,
+    "spatialReference": {
+      "wkid": 4326,
+      "latestWkid": 4326
+    }
+  },
+  "scale": 0
+}
