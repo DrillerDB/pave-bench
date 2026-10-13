@@ -264,6 +264,14 @@ def _report_html(args: argparse.Namespace) -> int:
     return 0
 
 
+def _publish(args: argparse.Namespace) -> int:
+    from .html_report import publish_results
+
+    publish_results(args.manifest, args.runs, args.out_dir, judged=args.judged, set_name=args.set_name, set_description=args.set_description)
+    print(f"Wrote leaderboard.md, leaderboard.json and frontier charts to {args.out_dir}")
+    return 0
+
+
 def _leaderboard(args: argparse.Namespace) -> int:
     write_leaderboard(args.runs, args.out, judged=args.judged)
     print(f"Wrote leaderboard to {args.out}")
@@ -349,6 +357,15 @@ def build_parser() -> argparse.ArgumentParser:
     score_runs.add_argument("--allow-guide", action="store_true")
     score_runs.add_argument("--judged", action="append", help="Judged-task results JSON (pavebench/judged.py); repeatable")
     score_runs.set_defaults(func=_score_runs)
+
+    publish = subparsers.add_parser("publish", help="Write the public results bundle (markdown, JSON, frontier SVGs) from scored runs")
+    publish.add_argument("--manifest", required=True)
+    publish.add_argument("--runs", required=True)
+    publish.add_argument("--out-dir", required=True)
+    publish.add_argument("--judged", action="append")
+    publish.add_argument("--set-name", default="")
+    publish.add_argument("--set-description", default="")
+    publish.set_defaults(func=_publish)
 
     report = subparsers.add_parser("report-html", help="Render a self-contained HTML leaderboard with frontier charts")
     report.add_argument("--runs", required=True)

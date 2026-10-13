@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" font-family="Helvetica, Arial, sans-serif">
+<rect width="820" height="440" fill="#ffffff"/>
+<text x="70" y="26" font-size="16" font-weight="700" fill="#1b1f22">Stall counting: accuracy vs speed</text>
+<line x1="98.7" y1="46" x2="98.7" y2="384" stroke="#e3e6e8"/>
+<text x="98.7" y="402" font-size="11" text-anchor="middle" fill="#5a6166">2 s</text>
+<line x1="180.7" y1="46" x2="180.7" y2="384" stroke="#e3e6e8"/>
+<text x="180.7" y="402" font-size="11" text-anchor="middle" fill="#5a6166">5 s</text>
+<line x1="242.7" y1="46" x2="242.7" y2="384" stroke="#e3e6e8"/>
+<text x="242.7" y="402" font-size="11" text-anchor="middle" fill="#5a6166">10 s</text>
+<line x1="304.8" y1="46" x2="304.8" y2="384" stroke="#e3e6e8"/>
+<text x="304.8" y="402" font-size="11" text-anchor="middle" fill="#5a6166">20 s</text>
+<line x1="386.8" y1="46" x2="386.8" y2="384" stroke="#e3e6e8"/>
+<text x="386.8" y="402" font-size="11" text-anchor="middle" fill="#5a6166">50 s</text>
+<line x1="448.8" y1="46" x2="448.8" y2="384" stroke="#e3e6e8"/>
+<text x="448.8" y="402" font-size="11" text-anchor="middle" fill="#5a6166">100 s</text>
+<line x1="510.9" y1="46" x2="510.9" y2="384" stroke="#e3e6e8"/>
+<text x="510.9" y="402" font-size="11" text-anchor="middle" fill="#5a6166">200 s</text>
+<line x1="70" y1="384.0" x2="530" y2="384.0" stroke="#e3e6e8"/>
+<text x="62" y="388.0" font-size="11" text-anchor="end" fill="#5a6166">0.0</text>
+<line x1="70" y1="350.2" x2="530" y2="350.2" stroke="#e3e6e8"/>
+<text x="62" y="354.2" font-size="11" text-anchor="end" fill="#5a6166">0.1</text>
+<line x1="70" y1="316.4" x2="530" y2="316.4" stroke="#e3e6e8"/>
+<text x="62" y="320.4" font-size="11" text-anchor="end" fill="#5a6166">0.2</text>
+<line x1="70" y1="282.6" x2="530" y2="282.6" stroke="#e3e6e8"/>
+<text x="62" y="286.6" font-size="11" text-anchor="end" fill="#5a6166">0.3</text>
+<line x1="70" y1="248.8" x2="530" y2="248.8" stroke="#e3e6e8"/>
+<text x="62" y="252.8" font-size="11" text-anchor="end" fill="#5a6166">0.4</text>
+<line x1="70" y1="215.0" x2="530" y2="215.0" stroke="#e3e6e8"/>
+<text x="62" y="219.0" font-size="11" text-anchor="end" fill="#5a6166">0.5</text>
+<line x1="70" y1="181.2" x2="530" y2="181.2" stroke="#e3e6e8"/>
+<text x="62" y="185.2" font-size="11" text-anchor="end" fill="#5a6166">0.6</text>
+<line x1="70" y1="147.4" x2="530" y2="147.4" stroke="#e3e6e8"/>
+<text x="62" y="151.4" font-size="11" text-anchor="end" fill="#5a6166">0.7</text>
+<line x1="70" y1="113.6" x2="530" y2="113.6" stroke="#e3e6e8"/>
+<text x="62" y="117.6" font-size="11" text-anchor="end" fill="#5a6166">0.8</text>
+<line x1="70" y1="79.8" x2="530" y2="79.8" stroke="#e3e6e8"/>
+<text x="62" y="83.8" font-size="11" text-anchor="end" fill="#5a6166">0.9</text>
+<line x1="70" y1="46.0" x2="530" y2="46.0" stroke="#e3e6e8"/>
+<text x="62" y="50.0" font-size="11" text-anchor="end" fill="#5a6166">1.0</text>
+<rect x="70" y="46" width="460" height="338" fill="none" stroke="#9aa2a7"/>
+<text x="300.0" y="426" font-size="12" text-anchor="middle" fill="#1b1f22">Median latency per lot (log scale; left is better)</text>
+<text transform="translate(18 215.0) rotate(-90)" font-size="12" text-anchor="middle" fill="#1b1f22">Count accuracy (up is better)</text>
+<path d="M112.1,340.2 L171.0,340.2 L171.0,329.6 L189.6,329.6 L189.6,322.6 L231.4,322.6 L231.4,249.5 L255.8,249.5 L255.8,187.8 L327.4,187.8 L327.4,72.7 L340.4,72.7 L340.4,71.1" fill="none" stroke="#d08a00" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="340.4" cy="71.1" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="348.4" y="65.1" font-size="10.5" font-weight="700" fill="#d08a00">1</text>
+<circle cx="327.4" cy="72.7" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="335.4" y="66.7" font-size="10.5" font-weight="700" fill="#d08a00">2</text>
+<circle cx="363.8" cy="83.0" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="371.8" y="77.0" font-size="10.5" font-weight="700" fill="#6b7c8f">3</text>
+<circle cx="487.9" cy="86.7" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="495.9" y="80.7" font-size="10.5" font-weight="700" fill="#6b7c8f">4</text>
+<circle cx="361.6" cy="87.3" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="369.6" y="81.3" font-size="10.5" font-weight="700" fill="#6b7c8f">5</text>
+<circle cx="393.6" cy="94.1" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="401.6" y="88.1" font-size="10.5" font-weight="700" fill="#6b7c8f">6</text>
+<circle cx="344.7" cy="97.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="352.7" y="91.8" font-size="10.5" font-weight="700" fill="#6b7c8f">7</text>
+<circle cx="434.7" cy="105.3" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="442.7" y="99.3" font-size="10.5" font-weight="700" fill="#6b7c8f">8</text>
+<circle cx="379.9" cy="114.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="387.9" y="108.2" font-size="10.5" font-weight="700" fill="#6b7c8f">9</text>
+<circle cx="338.8" cy="124.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="346.8" y="118.8" font-size="10.5" font-weight="700" fill="#6b7c8f">10</text>
+<circle cx="255.8" cy="187.8" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="263.8" y="181.8" font-size="10.5" font-weight="700" fill="#d08a00">11</text>
+<circle cx="261.1" cy="241.7" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="269.1" y="235.7" font-size="10.5" font-weight="700" fill="#6b7c8f">12</text>
+<circle cx="231.4" cy="249.5" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="239.4" y="243.5" font-size="10.5" font-weight="700" fill="#d08a00">13</text>
+<circle cx="189.6" cy="322.6" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="197.6" y="316.6" font-size="10.5" font-weight="700" fill="#d08a00">14</text>
+<circle cx="171.0" cy="329.6" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="179.0" y="323.6" font-size="10.5" font-weight="700" fill="#d08a00">15</text>
+<circle cx="112.1" cy="340.2" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="120.1" y="334.2" font-size="10.5" font-weight="700" fill="#d08a00">16</text>
+<circle cx="115.8" cy="355.1" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="123.8" y="349.1" font-size="10.5" font-weight="700" fill="#6b7c8f">17</text>
+<circle cx="192.2" cy="361.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="200.2" y="355.8" font-size="10.5" font-weight="700" fill="#6b7c8f">18</text>
+<text x="548" y="50" font-size="11" font-weight="700" fill="#1b1f22">Systems (best first)</text>
+<text x="548" y="68" font-size="10.5" fill="#a86f00" font-weight="700">1. Gemini 4 Argon, grid, 1 retry</text>
+<text x="548" y="83" font-size="10.5" fill="#a86f00" font-weight="700">2. Gemini 4 Argon, 0-1000 grid</text>
+<text x="548" y="98" font-size="10.5" fill="#3d464c" font-weight="400">3. GPT-6.1 Sol</text>
+<text x="548" y="113" font-size="10.5" fill="#3d464c" font-weight="400">4. Gemini 4 Argon, grid, high thinking</text>
+<text x="548" y="128" font-size="10.5" fill="#3d464c" font-weight="400">5. GPT-6 Astra</text>
+<text x="548" y="143" font-size="10.5" fill="#3d464c" font-weight="400">6. Claude Fable 5.1</text>
+<text x="548" y="158" font-size="10.5" fill="#3d464c" font-weight="400">7. Gemini 4 Argon, grid, ultra image</text>
+<text x="548" y="173" font-size="10.5" fill="#3d464c" font-weight="400">8. Muse Wonder Full</text>
+<text x="548" y="188" font-size="10.5" fill="#3d464c" font-weight="400">9. Claude Fable 5.1, image at 1568 px</text>
+<text x="548" y="203" font-size="10.5" fill="#3d464c" font-weight="400">10. Muse Wonder</text>
+<text x="548" y="218" font-size="10.5" fill="#a86f00" font-weight="700">11. GPT-6 Sol</text>
+<text x="548" y="233" font-size="10.5" fill="#3d464c" font-weight="400">12. Claude Opus 5.5</text>
+<text x="548" y="248" font-size="10.5" fill="#a86f00" font-weight="700">13. Claude Opus 5.5, image at 1568 px</text>
+<text x="548" y="263" font-size="10.5" fill="#a86f00" font-weight="700">14. Claude Sonnet 5.5, image at 1568 px</text>
+<text x="548" y="278" font-size="10.5" fill="#a86f00" font-weight="700">15. Claude Sonnet 5.5</text>
+<text x="548" y="293" font-size="10.5" fill="#a86f00" font-weight="700">16. Claude Haiku 5.5, image at 1568 px</text>
+<text x="548" y="308" font-size="10.5" fill="#3d464c" font-weight="400">17. Claude Haiku 5.5</text>
+<text x="548" y="323" font-size="10.5" fill="#3d464c" font-weight="400">18. GPT-6 Luna</text>
+<text x="548" y="346" font-size="10" fill="#5a6166">Gold = on the frontier</text>
+</svg>

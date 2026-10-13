@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" font-family="Helvetica, Arial, sans-serif">
+<rect width="820" height="440" fill="#ffffff"/>
+<text x="70" y="26" font-size="16" font-weight="700" fill="#1b1f22">Stripe lines (judged): usability vs cost</text>
+<line x1="93.4" y1="46" x2="93.4" y2="384" stroke="#e3e6e8"/>
+<text x="93.4" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.002</text>
+<line x1="153.6" y1="46" x2="153.6" y2="384" stroke="#e3e6e8"/>
+<text x="153.6" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.005</text>
+<line x1="199.1" y1="46" x2="199.1" y2="384" stroke="#e3e6e8"/>
+<text x="199.1" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.01</text>
+<line x1="244.6" y1="46" x2="244.6" y2="384" stroke="#e3e6e8"/>
+<text x="244.6" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.02</text>
+<line x1="304.8" y1="46" x2="304.8" y2="384" stroke="#e3e6e8"/>
+<text x="304.8" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.05</text>
+<line x1="350.4" y1="46" x2="350.4" y2="384" stroke="#e3e6e8"/>
+<text x="350.4" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.1</text>
+<line x1="395.9" y1="46" x2="395.9" y2="384" stroke="#e3e6e8"/>
+<text x="395.9" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.2</text>
+<line x1="456.1" y1="46" x2="456.1" y2="384" stroke="#e3e6e8"/>
+<text x="456.1" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.5</text>
+<line x1="501.6" y1="46" x2="501.6" y2="384" stroke="#e3e6e8"/>
+<text x="501.6" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$1</text>
+<line x1="70" y1="384.0" x2="530" y2="384.0" stroke="#e3e6e8"/>
+<text x="62" y="388.0" font-size="11" text-anchor="end" fill="#5a6166">0.0</text>
+<line x1="70" y1="350.2" x2="530" y2="350.2" stroke="#e3e6e8"/>
+<text x="62" y="354.2" font-size="11" text-anchor="end" fill="#5a6166">0.1</text>
+<line x1="70" y1="316.4" x2="530" y2="316.4" stroke="#e3e6e8"/>
+<text x="62" y="320.4" font-size="11" text-anchor="end" fill="#5a6166">0.2</text>
+<line x1="70" y1="282.6" x2="530" y2="282.6" stroke="#e3e6e8"/>
+<text x="62" y="286.6" font-size="11" text-anchor="end" fill="#5a6166">0.3</text>
+<line x1="70" y1="248.8" x2="530" y2="248.8" stroke="#e3e6e8"/>
+<text x="62" y="252.8" font-size="11" text-anchor="end" fill="#5a6166">0.4</text>
+<line x1="70" y1="215.0" x2="530" y2="215.0" stroke="#e3e6e8"/>
+<text x="62" y="219.0" font-size="11" text-anchor="end" fill="#5a6166">0.5</text>
+<line x1="70" y1="181.2" x2="530" y2="181.2" stroke="#e3e6e8"/>
+<text x="62" y="185.2" font-size="11" text-anchor="end" fill="#5a6166">0.6</text>
+<line x1="70" y1="147.4" x2="530" y2="147.4" stroke="#e3e6e8"/>
+<text x="62" y="151.4" font-size="11" text-anchor="end" fill="#5a6166">0.7</text>
+<line x1="70" y1="113.6" x2="530" y2="113.6" stroke="#e3e6e8"/>
+<text x="62" y="117.6" font-size="11" text-anchor="end" fill="#5a6166">0.8</text>
+<line x1="70" y1="79.8" x2="530" y2="79.8" stroke="#e3e6e8"/>
+<text x="62" y="83.8" font-size="11" text-anchor="end" fill="#5a6166">0.9</text>
+<line x1="70" y1="46.0" x2="530" y2="46.0" stroke="#e3e6e8"/>
+<text x="62" y="50.0" font-size="11" text-anchor="end" fill="#5a6166">1.0</text>
+<rect x="70" y="46" width="460" height="338" fill="none" stroke="#9aa2a7"/>
+<text x="300.0" y="426" font-size="12" text-anchor="middle" fill="#1b1f22">Mean cost per lot (log scale; left is better)</text>
+<text transform="translate(18 215.0) rotate(-90)" font-size="12" text-anchor="middle" fill="#1b1f22">Judged usability / 10 (up is better)</text>
+<path d="M100.9,341.8 L118.9,341.8 L118.9,338.9 L240.2,338.9 L240.2,331.9 L342.0,331.9 L342.0,279.8 L347.4,279.8 L347.4,188.2 L348.3,188.2 L348.3,182.6 L355.8,182.6 L355.8,153.0 L464.9,153.0 L464.9,134.5" fill="none" stroke="#d08a00" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="464.9" cy="134.5" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="472.9" y="128.5" font-size="10.5" font-weight="700" fill="#d08a00">1</text>
+<circle cx="355.8" cy="153.0" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="363.8" y="147.0" font-size="10.5" font-weight="700" fill="#d08a00">2</text>
+<circle cx="348.3" cy="182.6" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="356.3" y="176.6" font-size="10.5" font-weight="700" fill="#d08a00">3</text>
+<circle cx="347.4" cy="188.2" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="355.4" y="182.2" font-size="10.5" font-weight="700" fill="#d08a00">4</text>
+<circle cx="406.9" cy="229.1" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="414.9" y="223.1" font-size="10.5" font-weight="700" fill="#6b7c8f">5</text>
+<circle cx="350.6" cy="246.0" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="358.6" y="240.0" font-size="10.5" font-weight="700" fill="#6b7c8f">6</text>
+<circle cx="494.3" cy="278.4" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="502.3" y="272.4" font-size="10.5" font-weight="700" fill="#6b7c8f">7</text>
+<circle cx="342.0" cy="279.8" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="350.0" y="273.8" font-size="10.5" font-weight="700" fill="#d08a00">8</text>
+<circle cx="406.6" cy="292.5" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="414.6" y="286.5" font-size="10.5" font-weight="700" fill="#6b7c8f">9</text>
+<circle cx="499.1" cy="299.5" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="507.1" y="293.5" font-size="10.5" font-weight="700" fill="#6b7c8f">10</text>
+<circle cx="359.8" cy="305.1" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="367.8" y="299.1" font-size="10.5" font-weight="700" fill="#6b7c8f">11</text>
+<circle cx="240.2" cy="331.9" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="248.2" y="325.9" font-size="10.5" font-weight="700" fill="#d08a00">12</text>
+<circle cx="118.9" cy="338.9" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="126.9" y="332.9" font-size="10.5" font-weight="700" fill="#d08a00">13</text>
+<circle cx="100.9" cy="341.8" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="108.9" y="335.8" font-size="10.5" font-weight="700" fill="#d08a00">14</text>
+<circle cx="245.5" cy="358.7" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="253.5" y="352.7" font-size="10.5" font-weight="700" fill="#6b7c8f">15</text>
+<circle cx="106.1" cy="365.7" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="114.1" y="359.7" font-size="10.5" font-weight="700" fill="#6b7c8f">16</text>
+<text x="548" y="50" font-size="11" font-weight="700" fill="#1b1f22">Systems (best first)</text>
+<text x="548" y="68" font-size="10.5" fill="#a86f00" font-weight="700">1. GPT-6 Astra</text>
+<text x="548" y="83" font-size="10.5" fill="#a86f00" font-weight="700">2. GPT-6.1 Sol</text>
+<text x="548" y="98" font-size="10.5" fill="#a86f00" font-weight="700">3. Gemini 4 Argon, 0-1000 grid</text>
+<text x="548" y="113" font-size="10.5" fill="#a86f00" font-weight="700">4. Gemini 4 Argon, grid, hatch hint</text>
+<text x="548" y="128" font-size="10.5" fill="#3d464c" font-weight="400">5. Claude Opus 5.5, image at 1568 px</text>
+<text x="548" y="143" font-size="10.5" fill="#3d464c" font-weight="400">6. Gemini 4 Argon, pixel prompt</text>
+<text x="548" y="158" font-size="10.5" fill="#3d464c" font-weight="400">7. Claude Fable 5.1, image at 1568 px</text>
+<text x="548" y="173" font-size="10.5" fill="#a86f00" font-weight="700">8. GPT-6 Sol</text>
+<text x="548" y="188" font-size="10.5" fill="#3d464c" font-weight="400">9. Claude Opus 5.5</text>
+<text x="548" y="203" font-size="10.5" fill="#3d464c" font-weight="400">10. Claude Fable 5.1</text>
+<text x="548" y="218" font-size="10.5" fill="#3d464c" font-weight="400">11. Gemini 4 Argon, pixel prompt, ultra image</text>
+<text x="548" y="233" font-size="10.5" fill="#a86f00" font-weight="700">12. Claude Sonnet 5.5, image at 1568 px</text>
+<text x="548" y="248" font-size="10.5" fill="#a86f00" font-weight="700">13. Claude Haiku 5.5, image at 1568 px</text>
+<text x="548" y="263" font-size="10.5" fill="#a86f00" font-weight="700">14. GPT-6 Luna</text>
+<text x="548" y="278" font-size="10.5" fill="#3d464c" font-weight="400">15. Claude Sonnet 5.5</text>
+<text x="548" y="293" font-size="10.5" fill="#3d464c" font-weight="400">16. Claude Haiku 5.5</text>
+<text x="548" y="316" font-size="10" fill="#5a6166">Gold = on the frontier</text>
+</svg>
