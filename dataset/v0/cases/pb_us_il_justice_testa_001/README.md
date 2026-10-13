@@ -8,7 +8,7 @@ parking lot with ~30 landscape-island cutouts, a building, and a retention pond.
 | Location | Testa Dr, Justice IL (~41.757, -87.912) |
 | Imagery | Cook County 2025 Orthophotography (ArcGIS ImageServer), public domain |
 | Native GSD | 0.1524 m/px (0.5 US-ft, 6-inch nominal) -> `>15cm` tier |
-| Image | `image.png`, 1387 x 1608, exported at imageSR=4326 |
+| Image | `image.png`, 1388 x 1608, exported at imageSR=3857 (Web Mercator), pixel-aligned extent |
 | Paved area (reference) | 227,861 sq ft (Craig's hand trace) |
 | Cutouts | 30 interior landscape islands |
 | Task inputs | user analysis box (`inputBox`), interior click |
@@ -17,16 +17,24 @@ parking lot with ~30 landscape-island cutouts, a building, and a retention pond.
 ## Review status: needs_gold_review
 
 This case is **not benchmark truth yet.** The gold geometry was hand-traced by
-Craig on Google imagery and then projected onto the Cook County ortho by
-`pavebench case-from-propaving` (linear WGS84 -> pixel mapping over the analysis
-box). Two things a reviewer must confirm before promoting to `reviewed_gold`:
+Craig on Google imagery and projected onto the Cook County ortho by
+`pavebench case-from-propaving`.
 
-1. **Georegistration offset.** Google-traced geometry sits ~2-3 m off
-   survey-grade orthos. Overlaying the gold on `image.png` shows the boundary a
-   touch outside the real curb and the island rings shifted up-left by a couple
-   metres. Adjust (shift/rubber-sheet) or re-trace against this ortho.
-2. **Cutout completeness.** All 30 islands were carried over; verify each lands
-   on a real planter and none are missing at this resolution.
+**Fixed 2026-10-13: projection bug.** The first export (July) asked the ImageServer
+for a plate-carree (EPSG:4326) image whose pixel size did not match the bbox aspect.
+ArcGIS returns square pixels in the output spatial reference, so it silently widened
+the latitude extent, and the linear lat/lng -> pixel mapping placed the whole trace
+tens of metres off (the outline crossed the highway; islands missed their planters).
+The importer now exports in Web Mercator with an extent that is an exact multiple of
+a ground-square pixel, so the server returns exactly the requested frame, and projects
+the trace the same way. On the regenerated image the boundary follows the curbs and
+all 30 islands land on their planters.
+
+A reviewer must still confirm before promoting to `reviewed_gold`:
+
+1. **Residual georegistration offset.** Google-traced geometry can sit about a metre
+   or two off a survey-grade ortho. Adjust or re-trace against this image if needed.
+2. **Cutout completeness.** Verify each of the 30 islands and that none are missing.
 
 Regenerate the review overlay with:
 

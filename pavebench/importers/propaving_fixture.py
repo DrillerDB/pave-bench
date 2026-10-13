@@ -31,46 +31,80 @@ def _bbox(points: list[tuple[float, float]]) -> tuple[float, float, float, float
     return (min(xs), min(ys), max(xs), max(ys))
 
 
+# Exports use Web Mercator (EPSG:3857). An ArcGIS ImageServer always returns square
+# pixels in the output spatial reference and silently widens the extent when the
+# requested size does not match the bbox aspect. A plate-carree (4326) export with
+# pixels square on the ground therefore came back covering more latitude than
+# requested, and every projected vertex landed in the wrong place (Justice IL, fixed
+# 2026-10-13). In 3857 we choose an extent that is an exact multiple of the pixel
+# size, so the server returns precisely what was asked, and pixels are square on the
+# ground (scale 1/cos(lat) in both axes).
+_R = 6378137.0
+
+
+def _merc(lng: float, lat: float) -> tuple[float, float]:
+    x = math.radians(lng) * _R
+    y = math.log(math.tan(math.pi / 4 + math.radians(lat) / 2)) * _R
+    return x, y
+
+
+def _unmerc(x: float, y: float) -> tuple[float, float]:
+    return math.degrees(x / _R), math.degrees(2 * math.atan(math.exp(y / _R)) - math.pi / 2)
+
+
+def _mercator_frame(
+    bbox: tuple[float, float, float, float], export_gsd_meters: float, max_pixels: int
+) -> tuple[tuple[float, float, float, float], int, int, float]:
+    """Pixel-aligned Web Mercator extent (xmin, ymin, xmax, ymax), size and ground GSD."""
+
+    west, south, east, north = bbox
+    lat_mid = math.radians((south + north) / 2)
+    xmin, ymin = _merc(west, south)
+    xmax, ymax = _merc(east, north)
+    cell = export_gsd_meters / math.cos(lat_mid)  # Mercator metres per pixel
+    width = max(1, math.ceil((xmax - xmin) / cell))
+    height = max(1, math.ceil((ymax - ymin) / cell))
+    longest = max(width, height)
+    if longest > max_pixels:
+        cell *= longest / max_pixels
+        width = max(1, math.ceil((xmax - xmin) / cell))
+        height = max(1, math.ceil((ymax - ymin) / cell))
+    cx, cy = (xmin + xmax) / 2, (ymin + ymax) / 2
+    frame = (cx - width * cell / 2, cy - height * cell / 2, cx + width * cell / 2, cy + height * cell / 2)
+    return frame, width, height, round(cell * math.cos(lat_mid), 5)
+
+
 def _project(
     ring: list[tuple[float, float]],
-    bbox: tuple[float, float, float, float],
+    frame: tuple[float, float, float, float],
     width: int,
     height: int,
 ) -> list[list[float]]:
-    """Linear WGS84 -> pixel projection for an imageSR=4326 (plate-carree) export."""
+    """WGS84 -> pixel for an imageSR=3857 export of exactly ``frame``."""
 
-    west, south, east, north = bbox
-    span_lng = (east - west) or 1e-12
-    span_lat = (north - south) or 1e-12
+    xmin, ymin, xmax, ymax = frame
+    sx = width / (xmax - xmin)
+    sy = height / (ymax - ymin)
     projected: list[list[float]] = []
     for lng, lat in ring:
-        x = (lng - west) / span_lng * width
-        y = (north - lat) / span_lat * height
-        projected.append([round(x, 3), round(y, 3)])
+        x, y = _merc(lng, lat)
+        projected.append([round((x - xmin) * sx, 3), round((ymax - y) * sy, 3)])
     return projected
 
 
-def _export_image_url(base_url: str, bbox: tuple[float, float, float, float], width: int, height: int) -> str:
-    west, south, east, north = bbox
+def _export_image_url(base_url: str, frame: tuple[float, float, float, float], width: int, height: int) -> str:
+    xmin, ymin, xmax, ymax = frame
     query = urllib.parse.urlencode(
         {
-            "bbox": f"{west},{south},{east},{north}",
-            "bboxSR": 4326,
-            "imageSR": 4326,
+            "bbox": f"{xmin:.3f},{ymin:.3f},{xmax:.3f},{ymax:.3f}",
+            "bboxSR": 3857,
+            "imageSR": 3857,
             "size": f"{width},{height}",
             "format": "png",
             "f": "image",
         }
     )
     return f"{base_url.rstrip('/')}/exportImage?{query}"
-
-
-def _meters_extent(bbox: tuple[float, float, float, float]) -> tuple[float, float]:
-    west, south, east, north = bbox
-    lat_mid = math.radians((south + north) / 2)
-    width_m = (east - west) * 111_320 * math.cos(lat_mid)
-    height_m = (north - south) * 111_320
-    return width_m, height_m
 
 
 def create_case_from_propaving(
@@ -133,17 +167,13 @@ def create_case_from_propaving(
         box_lonlat = None
         bbox = _bbox(boundary_lonlat)
 
-    width_m, height_m = _meters_extent(bbox)
-    width = max(1, round(width_m / export_gsd_meters))
-    height = max(1, round(height_m / export_gsd_meters))
-    scale = min(1.0, max_pixels / max(width, height))
-    width = max(1, round(width * scale))
-    height = max(1, round(height * scale))
-    effective_gsd = round(((width_m / width) + (height_m / height)) / 2, 5)
+    frame, width, height, effective_gsd = _mercator_frame(bbox, export_gsd_meters, max_pixels)
+    west, south = _unmerc(frame[0], frame[1])
+    east, north = _unmerc(frame[2], frame[3])
 
-    boundary_px = _project(boundary_lonlat, bbox, width, height)
-    cutouts_px = [_project(ring, bbox, width, height) for ring in cutouts_lonlat]
-    input_box_px = _project(box_lonlat, bbox, width, height) if box_lonlat else None
+    boundary_px = _project(boundary_lonlat, frame, width, height)
+    cutouts_px = [_project(ring, frame, width, height) for ring in cutouts_lonlat]
+    input_box_px = _project(box_lonlat, frame, width, height) if box_lonlat else None
 
     try:
         cx, cy = interior_point(
@@ -157,7 +187,7 @@ def create_case_from_propaving(
     destination = Path(out_dir)
     destination.mkdir(parents=True, exist_ok=True)
 
-    image_url = _export_image_url(imagery_source["imageServer"], bbox, width, height)
+    image_url = _export_image_url(imagery_source["imageServer"], frame, width, height)
     imagery_status = "declared_not_fetched"
     image_file: str | None = None
     if fetch:
@@ -183,8 +213,10 @@ def create_case_from_propaving(
         "license": imagery_source.get("license"),
         "redistributable": True,
         "imageryStatus": imagery_status,
-        "bbox": {"west": bbox[0], "south": bbox[1], "east": bbox[2], "north": bbox[3]},
+        "bbox": {"west": west, "south": south, "east": east, "north": north},
         "bboxSR": 4326,
+        "imageSR": 3857,
+        "mercatorExtent": {"xmin": frame[0], "ymin": frame[1], "xmax": frame[2], "ymax": frame[3]},
     }
 
     label_source = {

@@ -87,3 +87,17 @@ def test_ingest_requires_redistributable_flag(tmp_path):
     unflagged = {**COOK, "redistributable": False}
     with pytest.raises(ValueError, match="redistributable"):
         create_case_from_propaving(fixture, tmp_path / "c", "x", unflagged, fetch=False)
+
+
+def test_mercator_frame_is_pixel_aligned_and_round_trips():
+    from pavebench.importers.propaving_fixture import _mercator_frame, _project
+
+    bbox = (-87.9127, 41.7559, -87.9102, 41.7581)
+    frame, w, h, gsd = _mercator_frame(bbox, 0.1524, 4000)
+    cell_x = (frame[2] - frame[0]) / w
+    cell_y = (frame[3] - frame[1]) / h
+    assert abs(cell_x - cell_y) < 1e-9  # square pixels: the server returns this extent as asked
+    assert abs(gsd - 0.1524) < 1e-4
+    (x0, y0), = _project([(bbox[0], bbox[3])], frame, w, h)
+    (x1, y1), = _project([(bbox[2], bbox[1])], frame, w, h)
+    assert 0 <= x0 < 1.5 and 0 <= y0 < 1.5 and w - 1.5 < x1 <= w and h - 1.5 < y1 <= h
