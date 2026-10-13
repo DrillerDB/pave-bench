@@ -21,6 +21,19 @@ Predictions are JSON Lines files. Each line is one case/task prediction.
 
 Coordinates are pixel coordinates in `[x, y]` order with origin at the top-left corner of the benchmark image.
 
+A polygon prediction must be valid to score: one simple outer ring (no self-crossing or
+self-touching), every cutout strictly inside the boundary, cutouts not overlapping or
+nested, and every vertex within 1 px of the image. An invalid polygon scores IoU 0 and
+fails, with the reason in `error` (`invalid_polygon:self_intersecting_boundary`,
+`invalid_polygon:cutout_crosses_boundary`, `invalid_polygon:overlapping_cutouts`,
+`invalid_polygon:outside_image`, ...). Area from an invalid polygon depends on the fill
+rule, so it is not comparable.
+
+A file may hold several predictions for the same case and task (repeated tries); every
+one is scored. `metadata.appValid` (optional, boolean) records whether the submitting
+application's own validator accepted the draft; the leaderboard reports it beside
+benchmark validity but never scores it.
+
 Required fields:
 
 - `caseId`
@@ -134,6 +147,18 @@ python3 -m pavebench.cli case-from-propaving \
 (`redistributable: true`, non-Google, non-Esri) — e.g. a county/state ArcGIS
 ImageServer. The generated case is `needs_gold_review` with a documented
 georegistration caveat.
+
+## Scoring many systems at once
+
+```bash
+python3 -m pavebench.cli score-runs --manifest <manifest.jsonl> --runs <runs.jsonl> \
+  --out <dir>/leaderboard.md [--judged <judged.json>]
+```
+
+Each runs row may name `predictionsPath` (scored into `scorePath`), `tasks` (limit
+scoring to the tasks the system attempted), `notes`, and `frontierExclude` +
+`frontierNote` (keep a system off one task's frontier, with the reason printed).
+Frontier SVGs are written next to the leaderboard.
 
 ## Rendering the leaderboard
 

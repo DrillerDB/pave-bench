@@ -82,6 +82,7 @@ def evaluate_stall_prediction(case: Case, prediction: StallCountPrediction) -> S
         "split": case.split,
         "latency_ms": prediction.latency_ms,
         "cost_usd": prediction.cost_usd,
+        "app_valid": prediction.metadata.get("appValid"),
     }
 
     markers = case.gt_stall_markers

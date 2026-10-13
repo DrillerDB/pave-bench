@@ -129,14 +129,24 @@ def _report(area_results: list[dict], stall_results: list[dict] | None = None) -
     return report
 
 
-def _score_manifest(args: argparse.Namespace) -> int:
-    rows = load_manifest(args.manifest)
-    predictions = _read_predictions(args.predictions)
+def score_manifest_report(
+    manifest: str | Path, predictions_path: str | Path, allow_guide: bool = False, tasks: list[str] | None = None
+) -> dict:
+    """Score every prediction (all tries) in a JSONL file against a manifest.
+
+    `tasks` limits scoring to the tasks a system was submitted for, so a system that
+    only attempted stall counting is not reported as missing every area case.
+    """
+
+    rows = load_manifest(manifest)
+    predictions = _read_predictions(predictions_path)
     area_results: list[dict] = []
     stall_results: list[dict] = []
     for row in rows:
-        require_scoreable_case(row.case, allow_guide=args.allow_guide)
+        require_scoreable_case(row.case, allow_guide=allow_guide)
         for task in row.tasks or ["click_connected_polygon"]:
+            if tasks is not None and task not in tasks:
+                continue
             task_predictions = [
                 prediction
                 for prediction in predictions
@@ -150,10 +160,37 @@ def _score_manifest(args: argparse.Namespace) -> int:
                 continue
             for prediction in task_predictions:
                 _dispatch(row.case, prediction, area_results, stall_results)
+    return _report(area_results, stall_results)
 
+
+def _score_manifest(args: argparse.Namespace) -> int:
+    report = score_manifest_report(args.manifest, args.predictions, allow_guide=args.allow_guide)
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(_report(area_results, stall_results), indent=2) + "\n", encoding="utf-8")
+    out_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    return 0
+
+
+def _score_runs(args: argparse.Namespace) -> int:
+    """Score every run row that names a predictionsPath, then render the leaderboard."""
+
+    runs_path = Path(args.runs)
+    base = runs_path.parent
+    for line in runs_path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        if not row.get("predictionsPath"):
+            continue
+        predictions = Path(row["predictionsPath"])
+        predictions = predictions if predictions.is_absolute() else base / predictions
+        score_path = Path(row["scorePath"])
+        score_path = score_path if score_path.is_absolute() else base / score_path
+        report = score_manifest_report(args.manifest, predictions, allow_guide=args.allow_guide, tasks=row.get("tasks"))
+        score_path.parent.mkdir(parents=True, exist_ok=True)
+        score_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    write_leaderboard(runs_path, args.out, judged=args.judged)
+    print(f"Wrote leaderboard to {args.out}")
     return 0
 
 
@@ -220,7 +257,7 @@ def _case_from_propaving(args: argparse.Namespace) -> int:
 
 
 def _leaderboard(args: argparse.Namespace) -> int:
-    write_leaderboard(args.runs, args.out)
+    write_leaderboard(args.runs, args.out, judged=args.judged)
     print(f"Wrote leaderboard to {args.out}")
     return 0
 
@@ -295,9 +332,20 @@ def build_parser() -> argparse.ArgumentParser:
     propaving.add_argument("--no-fetch", action="store_true", help="Skip fetching imagery; only scaffold geometry + metadata")
     propaving.set_defaults(func=_case_from_propaving)
 
+    score_runs = subparsers.add_parser(
+        "score-runs", help="Score every run in a runs manifest (rows with predictionsPath) and render the leaderboard"
+    )
+    score_runs.add_argument("--manifest", required=True)
+    score_runs.add_argument("--runs", required=True)
+    score_runs.add_argument("--out", required=True)
+    score_runs.add_argument("--allow-guide", action="store_true")
+    score_runs.add_argument("--judged", action="append", help="Judged-task results JSON (pavebench/judged.py); repeatable")
+    score_runs.set_defaults(func=_score_runs)
+
     leaderboard = subparsers.add_parser("leaderboard", help="Render the leaderboard markdown from a runs manifest")
     leaderboard.add_argument("--runs", required=True, help="Path to runs manifest JSONL (system/track/automation/scorePath)")
     leaderboard.add_argument("--out", required=True, help="Path to write the leaderboard markdown")
+    leaderboard.add_argument("--judged", action="append", help="Judged-task results JSON; repeatable")
     leaderboard.set_defaults(func=_leaderboard)
     return parser
 

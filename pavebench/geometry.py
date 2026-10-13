@@ -251,3 +251,115 @@ def mask_image_iou(truth, pred) -> float:
     intersection = _mask_count(ImageChops.logical_and(truth, pred))
     union = _mask_count(ImageChops.logical_or(truth, pred))
     return 1.0 if union == 0 else intersection / union
+
+
+# --- Polygon validity -------------------------------------------------------
+# A takeoff is only usable when its geometry is a valid polygon: one simple outer
+# ring, holes strictly inside it, holes not overlapping each other, and every
+# vertex on the image. Area and IoU computed from an invalid polygon depend on
+# the rasterizer's fill rule, so invalid predictions score as failures.
+
+IMAGE_EDGE_TOLERANCE_PX = 1.0
+
+
+def _orient(a: Point, b: Point, c: Point) -> float:
+    return (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])
+
+
+def _on_segment(a: Point, b: Point, p: Point, eps: float) -> bool:
+    return min(a[0], b[0]) - eps <= p[0] <= max(a[0], b[0]) + eps and min(a[1], b[1]) - eps <= p[1] <= max(a[1], b[1]) + eps
+
+
+def segments_intersect(a: Point, b: Point, c: Point, d: Point, eps: float = 1e-9) -> bool:
+    """True when segments ab and cd share any point (crossing, touching or overlapping)."""
+
+    if max(a[0], b[0]) < min(c[0], d[0]) - eps or max(c[0], d[0]) < min(a[0], b[0]) - eps:
+        return False
+    if max(a[1], b[1]) < min(c[1], d[1]) - eps or max(c[1], d[1]) < min(a[1], b[1]) - eps:
+        return False
+    o1, o2, o3, o4 = _orient(a, b, c), _orient(a, b, d), _orient(c, d, a), _orient(c, d, b)
+    if ((o1 > eps and o2 < -eps) or (o1 < -eps and o2 > eps)) and ((o3 > eps and o4 < -eps) or (o3 < -eps and o4 > eps)):
+        return True
+    return (
+        (abs(o1) <= eps and _on_segment(a, b, c, eps))
+        or (abs(o2) <= eps and _on_segment(a, b, d, eps))
+        or (abs(o3) <= eps and _on_segment(c, d, a, eps))
+        or (abs(o4) <= eps and _on_segment(c, d, b, eps))
+    )
+
+
+def _edges(ring: Sequence[Point]) -> list[tuple[Point, Point]]:
+    points = _closed_ring(ring)
+    # Drop zero-length edges from repeated vertices.
+    return [(p, q) for p, q in zip(points, points[1:]) if p != q]
+
+
+def ring_is_simple(ring: Sequence[Point]) -> bool:
+    """True when the ring never crosses or touches itself (adjacent edges may share their vertex)."""
+
+    edges = _edges(ring)
+    n = len(edges)
+    if n < 3:
+        return False
+    for i in range(n):
+        a, b = edges[i]
+        for j in range(i + 1, n):
+            if j == i + 1 or (i == 0 and j == n - 1):
+                continue  # neighbours share a vertex by construction
+            c, d = edges[j]
+            if segments_intersect(a, b, c, d):
+                return False
+    return True
+
+
+def _rings_touch(r1: Sequence[Point], r2: Sequence[Point]) -> bool:
+    e1, e2 = _edges(r1), _edges(r2)
+    for a, b in e1:
+        for c, d in e2:
+            if segments_intersect(a, b, c, d):
+                return True
+    return False
+
+
+def _bbox(ring: Sequence[Point]) -> tuple[float, float, float, float]:
+    xs = [p[0] for p in ring]
+    ys = [p[1] for p in ring]
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def _bboxes_overlap(a: tuple[float, float, float, float], b: tuple[float, float, float, float]) -> bool:
+    return not (a[2] < b[0] or b[2] < a[0] or a[3] < b[1] or b[3] < a[1])
+
+
+def polygon_validity_error(
+    boundary: Sequence[Point],
+    cutouts: Sequence[Sequence[Point]],
+    image_width: int,
+    image_height: int,
+) -> str | None:
+    """Return the first reason a predicted polygon is unusable, or None when it is valid."""
+
+    tol = IMAGE_EDGE_TOLERANCE_PX
+    for ring in [boundary, *cutouts]:
+        for x, y in ring:
+            if not (-tol <= x <= image_width + tol and -tol <= y <= image_height + tol):
+                return "outside_image"
+    if not ring_is_simple(boundary):
+        return "self_intersecting_boundary"
+    for cutout in cutouts:
+        if not ring_is_simple(cutout):
+            return "self_intersecting_cutout"
+    outer_box = _bbox(boundary)
+    boxes = [_bbox(c) for c in cutouts]
+    for cutout, box in zip(cutouts, boxes):
+        if not _bboxes_overlap(outer_box, box) or not all(point_in_ring(p, boundary) for p in cutout):
+            return "cutout_outside_boundary"
+        if _rings_touch(cutout, boundary):
+            return "cutout_crosses_boundary"
+    for i in range(len(cutouts)):
+        for j in range(i + 1, len(cutouts)):
+            if not _bboxes_overlap(boxes[i], boxes[j]):
+                continue
+            if _rings_touch(cutouts[i], cutouts[j]) or point_in_ring(cutouts[i][0], cutouts[j]) or point_in_ring(cutouts[j][0], cutouts[i]):
+                return "overlapping_cutouts"
+    return None

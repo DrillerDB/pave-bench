@@ -139,6 +139,9 @@ class EvalResult:
     gsd_meters: float | None = None
     gsd_tier: str = GSD_TIER_UNKNOWN
     split: str = "unspecified"
+    # Optional: whether the submitting application's own validator accepted this
+    # draft (metadata.appValid). Reported beside benchmark validity, never scored.
+    app_valid: bool | None = None
 
 
 @dataclass(frozen=True)
@@ -163,6 +166,9 @@ class StallEvalResult:
     gsd_meters: float | None = None
     gsd_tier: str = GSD_TIER_UNKNOWN
     split: str = "unspecified"
+    # Optional: whether the submitting application's own validator accepted this
+    # draft (metadata.appValid). Reported beside benchmark validity, never scored.
+    app_valid: bool | None = None
 
 
 def _points(raw_points: list[list[float]]) -> list[Point]:

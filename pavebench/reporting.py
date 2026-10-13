@@ -41,6 +41,11 @@ def latency_class(p95_ms: float | None) -> str:
     return "BATCH"
 
 
+def _app_valid(results: list[dict[str, Any]]) -> dict[str, Any]:
+    flags = [bool(r["app_valid"]) for r in results if r.get("app_valid") is not None]
+    return {"appValidCases": len(flags), "appValidRate": round(sum(flags) / len(flags), 6) if flags else None}
+
+
 def _latency_cost(results: list[dict[str, Any]]) -> dict[str, Any]:
     latencies = [float(r["latency_ms"]) for r in results if r.get("latency_ms") is not None]
     costs = [float(r["cost_usd"]) for r in results if r.get("cost_usd") is not None]
@@ -73,7 +78,7 @@ def _summarize_group(results: list[dict[str, Any]]) -> dict[str, Any]:
         "passes": sum(1 for result in results if result["passed"]),
         "missingPredictions": sum(1 for result in results if result.get("error") == "missing_prediction"),
         "emptyPredictions": sum(1 for result in results if result.get("error") == "empty_prediction"),
-        "invalidPolygons": sum(1 for result in results if result.get("error") == "invalid_polygon"),
+        "invalidPolygons": sum(1 for result in results if str(result.get("error") or "").startswith("invalid_polygon")),
         "meanIou": _mean([float(result["iou"]) for result in results]),
         "meanAreaDeltaPct": _mean(area_deltas),
         "medianAreaDeltaPct": _median(area_deltas),
@@ -84,6 +89,8 @@ def _summarize_group(results: list[dict[str, Any]]) -> dict[str, Any]:
         "cutoutCasesScored": len(recoveries),
     }
     summary.update(_latency_cost(results))
+    summary.update(_app_valid(results))
+    summary["distinctCases"] = len({str(r.get("case_id")) for r in results})
     return summary
 
 
@@ -140,6 +147,8 @@ def _summarize_stall_group(results: list[dict[str, Any]]) -> dict[str, Any]:
         "medianLocationErrorM": _median(location_errors) if location_errors else None,
     }
     summary.update(_latency_cost(results))
+    summary.update(_app_valid(results))
+    summary["distinctCases"] = len({str(r.get("case_id")) for r in results})
     return summary
 
 

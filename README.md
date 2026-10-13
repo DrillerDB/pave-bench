@@ -15,11 +15,29 @@ The tracks are intentionally separate. Direct VLM polygon generation, true mask 
 
 ## Tasks
 
+The three contractor jobs, and how each is scored today:
+
+| Job | Task | Scored against |
+|---|---|---|
+| Full lot measurement | `click_connected_polygon` (or `semantic_mask`) | Gold outline and islands |
+| Stall count | `stall_count` | Gold count; per-stall markers when the case ships them |
+| Striping takeoff | `stripe_lines` | A model judge, until stripe gold exists ([docs/model-frontier.md](docs/model-frontier.md#judged-tasks)) |
+
 - `semantic_mask`: segment visible pavement in the image.
 - `click_connected_polygon`: return the paved component containing the target click.
+  The polygon must be valid: one simple outer ring, cutouts strictly inside it and
+  apart from each other, every vertex on the image. Anything else scores as a failure.
 - `stall_count`: count parking stalls in a lot polygon, optionally emitting per-stall
   geometry (points or oriented boxes) scored against gold markers.
+- `stripe_lines`: painted stripe geometry (stall dividers, aisle lines, stop bars,
+  hatch strokes) for linear-foot takeoff. Judged, not gold-scored, for now.
 - `scope_polygon`: future task for matching a specific commercial project scope.
+
+## Model frontier
+
+`pavebench score-runs` scores every system in a runs manifest in one pass and renders
+the leaderboard with price-performance and speed-performance frontier charts. Repeated
+tries per case are all scored. See [docs/model-frontier.md](docs/model-frontier.md).
 
 ## What PaveBench measures
 

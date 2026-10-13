@@ -6,6 +6,7 @@ from .geometry import (
     mask_to_image,
     point_in_polygon,
     polygon_area,
+    polygon_validity_error,
     rasterize_polygon_image,
     ring_area,
 )
@@ -26,7 +27,11 @@ def _case_context(case: Case) -> dict:
 
 
 def _pred_context(prediction: PolygonPrediction | MaskPrediction) -> dict:
-    return {"latency_ms": prediction.latency_ms, "cost_usd": prediction.cost_usd}
+    return {
+        "latency_ms": prediction.latency_ms,
+        "cost_usd": prediction.cost_usd,
+        "app_valid": prediction.metadata.get("appValid"),
+    }
 
 
 def cutout_recovery(gt_cutouts, pred_cutouts) -> tuple[int, int, float]:
@@ -116,6 +121,9 @@ def evaluate_polygon_prediction(case: Case, prediction: PolygonPrediction) -> Ev
         return _invalid_result(case, prediction, "empty_prediction")
     if not _valid_ring(prediction.boundary) or any(not _valid_ring(cutout) for cutout in prediction.cutouts):
         return _invalid_result(case, prediction, "invalid_polygon")
+    reason = polygon_validity_error(prediction.boundary, prediction.cutouts, case.image_width, case.image_height)
+    if reason:
+        return _invalid_result(case, prediction, f"invalid_polygon:{reason}")
 
     truth_mask = rasterize_polygon_image(case.gt_boundary, case.gt_cutouts, case.image_width, case.image_height)
     pred_mask = rasterize_polygon_image(prediction.boundary, prediction.cutouts, case.image_width, case.image_height)
