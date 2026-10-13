@@ -1,5 +1,7 @@
 # PaveBench
 
+**Website and leaderboard: [pavebench.org](https://pavebench.org)** · results: [`results/leaderboard.md`](results/leaderboard.md)
+
 PaveBench is a public benchmark harness for aerial pavement segmentation and pavement-to-polygon extraction.
 
 The benchmark is built around a practical contractor workflow: given a top-down aerial image, return a valid paved-surface mask or polygon with interior cutouts for buildings, islands, grass, trees, and other non-paved holes.
@@ -32,6 +34,13 @@ The three contractor jobs, and how each is scored today:
 - `stripe_lines`: painted stripe geometry (stall dividers, aisle lines, stop bars,
   hatch strokes) for linear-foot takeoff. Judged, not gold-scored, for now.
 - `scope_polygon`: future task for matching a specific commercial project scope.
+
+## Website
+
+`site/` holds the pavebench.org page. `python3 -m pavebench.cli build-site` assembles it
+into `_site/` from `results/leaderboard.json` (written by `pavebench publish`), and the
+`Site` GitHub Actions workflow builds and deploys it to GitHub Pages on every push to
+`main` that touches the site, the results or the code.
 
 ## Model frontier
 

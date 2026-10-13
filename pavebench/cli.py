@@ -272,6 +272,14 @@ def _publish(args: argparse.Namespace) -> int:
     return 0
 
 
+def _build_site(args: argparse.Namespace) -> int:
+    from .site import build_site
+
+    out = build_site(args.results, args.out)
+    print(f"Built site in {out}")
+    return 0
+
+
 def _leaderboard(args: argparse.Namespace) -> int:
     write_leaderboard(args.runs, args.out, judged=args.judged)
     print(f"Wrote leaderboard to {args.out}")
@@ -357,6 +365,11 @@ def build_parser() -> argparse.ArgumentParser:
     score_runs.add_argument("--allow-guide", action="store_true")
     score_runs.add_argument("--judged", action="append", help="Judged-task results JSON (pavebench/judged.py); repeatable")
     score_runs.set_defaults(func=_score_runs)
+
+    site = subparsers.add_parser("build-site", help="Build the static pavebench.org site from a results bundle")
+    site.add_argument("--results", default="results/leaderboard.json")
+    site.add_argument("--out", default="_site")
+    site.set_defaults(func=_build_site)
 
     publish = subparsers.add_parser("publish", help="Write the public results bundle (markdown, JSON, frontier SVGs) from scored runs")
     publish.add_argument("--manifest", required=True)
