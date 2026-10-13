@@ -77,6 +77,9 @@ def render_judged_section(data: dict[str, Any], out_dir: Path | None = None) -> 
             )
         )
     lines.append("")
+    noted = [s for s in systems if s.get("note")]
+    if noted:
+        lines += ["Notes:", "", *[f"- **{s['system']}**: {s['note']}" for s in noted], ""]
     if out_dir is not None:
         points = [
             FrontierPoint(s["system"], float(s["meanCostUsd"]), float(s["meanUsability"]) / 10.0)

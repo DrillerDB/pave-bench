@@ -108,7 +108,7 @@ const DATA = __DATA__;
 const COLORS = { OpenAI: "var(--openai)", Google: "var(--google)", Anthropic: "var(--anthropic)", Other: "var(--other)" };
 const fmtPct = (v) => (v == null ? "–" : (v * 100).toFixed(v < 0.1 ? 1 : 0) + "%");
 const fmtS = (ms) => (ms == null ? "–" : (ms / 1000).toFixed(ms < 10000 ? 1 : 0) + " s");
-const fmtUsd = (v) => (v == null ? "–" : "$" + (v < 0.01 ? v.toFixed(4) : v < 1 ? v.toFixed(3) : v.toFixed(2)));
+const fmtUsd = (v) => (v == null ? "–" : "$" + String(Number(v < 0.01 ? v.toFixed(4) : v < 1 ? v.toFixed(3) : v.toFixed(2))));
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const tip = document.getElementById("tip");
 
@@ -185,7 +185,7 @@ const stall = section({
 for (const el of [area, stall]) if (el) jobs.appendChild(el);
 
 for (const j of DATA.judged || []) {
-  const rows = (j.systems || []).filter((s) => s.meanUsability != null).map((s) => ({ ...s, accuracy: s.meanUsability / 10, cost: s.meanCostUsd, p50: s.p50LatencyMs, excluded: false, notes: "" }));
+  const rows = (j.systems || []).filter((s) => s.meanUsability != null).map((s) => ({ ...s, accuracy: s.meanUsability / 10, cost: s.meanCostUsd, p50: s.p50LatencyMs, excluded: false, notes: s.note || "" }));
   const cal = j.calibration || {};
   const el = section({
     id: "stripes", eyebrow: "Striping takeoff · judged", title: "Stripe lines", yLabel: "Judged usability / 10", rows,
