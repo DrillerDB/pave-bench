@@ -38,6 +38,15 @@ python3 -m pavebench.cli score-runs --manifest dataset/private/<set>/manifest.js
   --judged dataset/private/<set>/judged-stripes.json
 ```
 
+For a page to share, render the same runs as one self-contained HTML file with
+interactive frontier charts (cost or speed axis) and tables:
+
+```bash
+python3 -m pavebench.cli report-html --runs dataset/private/<set>/runs.jsonl \
+  --judged dataset/private/<set>/judged-stripes.json \
+  --title "PaveBench Leaderboard" --subtitle "<set description>" --out <set>/leaderboard.html
+```
+
 Results from a private set are unofficial (see `imagery-policy.md`): they guide model
 choice, and they never earn the INSTANT badge.
 

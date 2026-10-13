@@ -1,0 +1,206 @@
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a leaderboard read job by job. Each job is a chart (frontier, with a
+   cost/speed toggle) beside a ranked table that stacks under it on narrow screens.
+   Concrete greys, traffic-paint yellow marks the frontier; vendors get fixed hues. */
+:root {
+  --bg: #eef0ef;
+  --surface: #f9faf9;
+  --ink: #171a1c;
+  --muted: #5a6266;
+  --line: #d3d8d8;
+  --grid: #e2e6e6;
+  --paint: #e2a400;
+  --paint-ink: #7a5600;
+  --openai: #1f7a63;
+  --google: #3b5bc7;
+  --anthropic: #b8552f;
+  --other: #6b7378;
+  --warn: #a33a12;
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121416; --surface: #1b1e21; --ink: #e7e9ea; --muted: #9aa3a7; --line: #2f343a; --grid: #262a2f;
+    --paint: #f2c230; --paint-ink: #f2c230; --openai: #4fc2a3; --google: #8ea6ff; --anthropic: #f08a62; --other: #9aa3a7; --warn: #ff8a5c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121416; --surface: #1b1e21; --ink: #e7e9ea; --muted: #9aa3a7; --line: #2f343a; --grid: #262a2f;
+  --paint: #f2c230; --paint-ink: #f2c230; --openai: #4fc2a3; --google: #8ea6ff; --anthropic: #f08a62; --other: #9aa3a7; --warn: #ff8a5c;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); padding-block: 36px 56px; display: grid; gap: 44px; }
+h1, h2 { font-family: var(--font-display); margin: 0; line-height: 1.05; text-wrap: balance; }
+h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; }
+p { margin: 0; }
+.eyebrow { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.85rem; color: var(--paint-ink); }
+.mast { display: grid; gap: 10px; max-width: 80ch; }
+.mast .sub { color: var(--muted); }
+.rule { height: 5px; width: min(240px, 60%); background: repeating-linear-gradient(90deg, var(--paint) 0 34px, transparent 34px 50px); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.85rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.job { display: grid; gap: 16px; }
+.job-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 10px 20px; border-top: 3px solid var(--ink); padding-top: 14px; }
+.job-head .what { color: var(--muted); max-width: 75ch; }
+.toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+.toggle button { font: inherit; font-size: 0.85rem; font-weight: 600; background: var(--surface); color: var(--ink); border: 0; padding: 6px 12px; cursor: pointer; }
+.toggle button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.toggle button:focus-visible { outline: 2px solid var(--paint); outline-offset: -2px; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 18px; align-items: start; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px; min-width: 0; }
+.chart svg { width: 100%; height: auto; display: block; }
+.chart .axis { fill: var(--muted); font: 11px var(--font-mono); }
+.chart .lbl { fill: var(--ink); font: 12px var(--font-body); }
+.chart .gl { stroke: var(--grid); }
+.chart .frame { fill: none; stroke: var(--line); }
+.chart .front { fill: none; stroke: var(--paint); stroke-width: 2.5; stroke-dasharray: 6 4; }
+.chart .pt { stroke: var(--surface); stroke-width: 1.5; cursor: pointer; }
+.chart .pt.on { stroke: var(--paint); stroke-width: 3; }
+.chart .num { font: 700 10.5px var(--font-mono); fill: var(--ink); pointer-events: none; }
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); padding: 8px 10px; border-radius: 4px; font-size: 0.8rem; max-width: 280px; line-height: 1.4; z-index: 5; }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 0.85rem; }
+th, td { text-align: right; padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
+td.sys { white-space: normal; min-width: 190px; font-weight: 600; }
+td.sys .dot { margin-right: 6px; vertical-align: 1px; }
+td.rank { font-family: var(--font-mono); color: var(--muted); }
+.badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-left: 6px; background: var(--paint); color: #171a1c; vertical-align: 1px; }
+.badge.off { background: transparent; color: var(--warn); border: 1px solid var(--warn); }
+.notes { display: grid; gap: 4px; font-size: 0.82rem; color: var(--muted); max-width: 110ch; }
+.notes b { color: var(--ink); }
+.judged-note { border-left: 4px solid var(--paint); padding: 2px 0 2px 14px; max-width: 95ch; color: var(--ink); }
+.foot { color: var(--muted); font-size: 0.85rem; display: grid; gap: 8px; max-width: 95ch; border-top: 1px solid var(--line); padding-top: 16px; }
+code { font-family: var(--font-mono); font-size: 0.9em; }
+@media (max-width: 900px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Pave Bench · updated __UPDATED__</p>
+    <h1>__TITLE__</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="sub">__SUBTITLE__</p>
+    <div class="legend" id="legend"></div>
+  </header>
+  <div id="jobs" class="wrap" style="padding:0;gap:44px"></div>
+  <footer class="foot">
+    <p>A system is on the frontier (yellow ring, dashed line) when no other system is at least as accurate and cheaper, or at least as accurate and faster. Lot outline accuracy is mean overlap (IoU) with the hand trace over every try, with an unusable polygon counted as zero. Stall accuracy is 1 minus the mean count error against the hand count. Stripe lines have no hand-traced answer yet, so a model judge scores them; that section names its judge and calibration.</p>
+    <p>Each lot was tried 2 or 3 times per system and every try counts. Cost is the API list price for the tokens each try used (prices for some models come from secondary sources). Latency is wall-clock per try.</p>
+  </footer>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+const DATA = __DATA__;
+const COLORS = { OpenAI: "var(--openai)", Google: "var(--google)", Anthropic: "var(--anthropic)", Other: "var(--other)" };
+const fmtPct = (v) => (v == null ? "–" : (v * 100).toFixed(v < 0.1 ? 1 : 0) + "%");
+const fmtS = (ms) => (ms == null ? "–" : (ms / 1000).toFixed(ms < 10000 ? 1 : 0) + " s");
+const fmtUsd = (v) => (v == null ? "–" : "$" + (v < 0.01 ? v.toFixed(4) : v < 1 ? v.toFixed(3) : v.toFixed(2)));
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const tip = document.getElementById("tip");
+
+function pareto(rows, xKey) {
+  const pts = rows.filter((r) => !r.excluded && r[xKey] != null && r[xKey] > 0).sort((a, b) => a[xKey] - b[xKey] || b.accuracy - a.accuracy);
+  const out = []; let best = -Infinity;
+  for (const r of pts) if (r.accuracy > best) { out.push(r); best = r.accuracy; }
+  return out;
+}
+
+function chart(rows, xKey, yLabel) {
+  const W = 520, H = 360, L = 52, R = 16, T = 16, B = 46, pw = W - L - R, ph = H - T - B;
+  const xs = rows.map((r) => r[xKey]).filter((v) => v > 0);
+  const lo = Math.min(...xs) / 1.7, hi = Math.max(...xs) * 1.7;
+  const yMin = Math.max(0, Math.floor((Math.min(...rows.map((r) => r.accuracy)) - 0.05) * 10) / 10);
+  const sx = (v) => L + ((Math.log10(v) - Math.log10(lo)) / (Math.log10(hi) - Math.log10(lo))) * pw;
+  const sy = (v) => T + (1 - (v - yMin) / (1 - yMin)) * ph;
+  let g = "";
+  for (let e = Math.floor(Math.log10(lo)); 10 ** e <= hi; e++) for (const m of [1, 2, 5]) {
+    const v = m * 10 ** e; if (v < lo || v > hi) continue;
+    g += `<line class="gl" x1="${sx(v)}" x2="${sx(v)}" y1="${T}" y2="${T + ph}"/><text class="axis" x="${sx(v)}" y="${T + ph + 16}" text-anchor="middle">${xKey === "cost" ? fmtUsd(v) : (v / 1000) + " s"}</text>`;
+  }
+  for (let v = yMin; v <= 1.0001; v += 0.1) g += `<line class="gl" x1="${L}" x2="${L + pw}" y1="${sy(v)}" y2="${sy(v)}"/><text class="axis" x="${L - 6}" y="${sy(v) + 4}" text-anchor="end">${v.toFixed(1)}</text>`;
+  const front = pareto(rows, xKey);
+  const onSet = new Set(front.map((r) => r.system));
+  let path = "";
+  front.forEach((r, i) => { path += (i ? ` L${sx(r[xKey])},${sy(front[i - 1].accuracy)} L` : "M") + `${sx(r[xKey])},${sy(r.accuracy)}`; });
+  const ranked = [...rows].sort((a, b) => b.accuracy - a.accuracy);
+  const dots = ranked.map((r, i) => r[xKey] > 0 ? `<circle class="pt${onSet.has(r.system) ? " on" : ""}" data-i="${rows.indexOf(r)}" cx="${sx(r[xKey])}" cy="${sy(Math.max(yMin, r.accuracy))}" r="${onSet.has(r.system) ? 7 : 6}" fill="${COLORS[r.provider] || COLORS.Other}"/><text class="num" x="${sx(r[xKey]) + 9}" y="${sy(Math.max(yMin, r.accuracy)) - 7}">${i + 1}</text>` : "").join("");
+  return { svg: `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(yLabel)} against ${xKey === "cost" ? "cost" : "latency"}">${g}<rect class="frame" x="${L}" y="${T}" width="${pw}" height="${ph}"/>${front.length > 1 ? `<path class="front" d="${path}"/>` : ""}${dots}<text class="lbl" x="${L + pw / 2}" y="${H - 8}" text-anchor="middle">${xKey === "cost" ? "Mean cost per lot (log)" : "Median time per lot (log)"} · left is better</text><text class="lbl" transform="translate(13 ${T + ph / 2}) rotate(-90)" text-anchor="middle">${esc(yLabel)} · up is better</text></svg>`, onSet };
+}
+
+function section(cfg) {
+  const rows = cfg.rows;
+  if (!rows.length) return null;
+  const el = document.createElement("section");
+  el.className = "job";
+  el.id = cfg.id;
+  el.innerHTML = `<div class="job-head"><div><p class="eyebrow">${esc(cfg.eyebrow)}</p><h2>${esc(cfg.title)}</h2><p class="what">${cfg.what}</p></div>
+    <div class="toggle" role="group" aria-label="Chart axis"><button type="button" data-x="cost" aria-pressed="true">Cost</button><button type="button" data-x="p50" aria-pressed="false">Speed</button></div></div>
+    <div class="grid2"><div class="card chart"></div><div class="card tablewrap"></div></div><div class="notes"></div>`;
+  const chartEl = el.querySelector(".chart"), tableEl = el.querySelector(".tablewrap");
+  function draw(xKey) {
+    const { svg, onSet } = chart(rows, xKey, cfg.yLabel);
+    chartEl.innerHTML = svg;
+    const ranked = [...rows].sort((a, b) => b.accuracy - a.accuracy);
+    tableEl.innerHTML = `<table><thead><tr><th>#</th><th>System</th>${cfg.cols.map((c) => `<th>${c[0]}</th>`).join("")}</tr></thead><tbody>${ranked.map((r, i) => `<tr><td class="rank">${i + 1}</td><td class="sys"><span class="sw dot" style="background:${COLORS[r.provider] || COLORS.Other}"></span>${esc(r.system)}${onSet.has(r.system) ? '<span class="badge">frontier</span>' : r.excluded ? '<span class="badge off">held off frontier</span>' : ""}</td>${cfg.cols.map((c) => `<td>${c[1](r)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+    chartEl.querySelectorAll(".pt").forEach((p) => {
+      const r = rows[Number(p.dataset.i)];
+      const show = (e) => { tip.hidden = false; tip.innerHTML = `<b>${esc(r.system)}</b><br>${cfg.tip(r)}<br>${fmtUsd(r.cost)} per lot · ${fmtS(r.p50)} median`; tip.style.left = Math.min(e.clientX + 14, innerWidth - 300) + "px"; tip.style.top = e.clientY + 14 + "px"; };
+      p.addEventListener("mousemove", show); p.addEventListener("mouseleave", () => (tip.hidden = true));
+    });
+    el.querySelectorAll(".toggle button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.x === xKey)));
+  }
+  el.querySelectorAll(".toggle button").forEach((b) => b.addEventListener("click", () => draw(b.dataset.x)));
+  draw("cost");
+  el.querySelector(".notes").innerHTML = rows.filter((r) => r.notes || r.excluded).map((r) => `<p><b>${esc(r.system)}.</b> ${esc(r.notes)}${r.excluded ? " Held off the frontier: " + esc(r.frontierNote) : ""}</p>`).join("");
+  return el;
+}
+
+const jobs = document.getElementById("jobs");
+const area = section({
+  id: "lot", eyebrow: "Full lot measurement", title: "Lot outlines", yLabel: "Mean IoU", rows: DATA.tasks.area,
+  what: "Trace the paved area around a tapped point, with islands cut out. Scored against hand-traced outlines.",
+  cols: [["Mean IoU", (r) => r.accuracy.toFixed(3)], ["Pass", (r) => fmtPct(r.passRate)], ["Usable", (r) => fmtPct(r.valid)], ["App accepted", (r) => fmtPct(r.appValid)], ["Median area Δ", (r) => fmtPct(r.medianAreaDelta)], ["Islands found", (r) => fmtPct(r.cutoutRecovery)], ["Median time", (r) => fmtS(r.p50)], ["Cost / lot", (r) => fmtUsd(r.cost)], ["Tries", (r) => `${r.lots}×${Math.round(r.attempts / r.lots)}`]],
+  tip: (r) => `IoU ${r.accuracy.toFixed(3)} · usable ${fmtPct(r.valid)}`,
+});
+const stall = section({
+  id: "stalls", eyebrow: "Stall count", title: "Stall counts", yLabel: "Count accuracy", rows: DATA.tasks.stall,
+  what: "Count the marked stalls inside a lot. Scored against hand counts; this set has no per-stall markers yet, so placement is not scored.",
+  cols: [["Accuracy", (r) => fmtPct(r.accuracy)], ["Within 10%", (r) => fmtPct(r.passRate)], ["Mean error", (r) => fmtPct(r.meanErr)], ["p90 error", (r) => fmtPct(r.p90Err)], ["App accepted", (r) => fmtPct(r.appValid)], ["Median time", (r) => fmtS(r.p50)], ["Cost / lot", (r) => fmtUsd(r.cost)], ["Tries", (r) => `${r.lots}×${Math.round(r.attempts / r.lots)}`]],
+  tip: (r) => `count accuracy ${fmtPct(r.accuracy)} · within 10% on ${fmtPct(r.passRate)}`,
+});
+for (const el of [area, stall]) if (el) jobs.appendChild(el);
+
+for (const j of DATA.judged || []) {
+  const rows = (j.systems || []).filter((s) => s.meanUsability != null).map((s) => ({ ...s, accuracy: s.meanUsability / 10, cost: s.meanCostUsd, p50: s.p50LatencyMs, excluded: false, notes: "" }));
+  const cal = j.calibration || {};
+  const el = section({
+    id: "stripes", eyebrow: "Striping takeoff · judged", title: "Stripe lines", yLabel: "Judged usability / 10", rows,
+    what: `No hand-traced stripe answer exists yet. ${esc(j.judge)} compares each system's drawing with ${esc(j.reference)}'s on the same lot, blinded and in both orders.`,
+    cols: [["Usability", (r) => r.meanUsability.toFixed(1)], ["Win rate vs ref.", (r) => (r.winRateVsReference == null ? "reference" : fmtPct(r.winRateVsReference))], ["Rows missed / draft", (r) => (r.faults?.rowsMissedMean ?? 0).toFixed(1)], ["Many paintless lines", (r) => fmtPct(r.faults?.linesWithoutPaintManyRate)], ["Hatch outline only", (r) => fmtPct(r.faults?.hatchingOutlineOrMissingRate)], ["Median time", (r) => fmtS(r.p50)], ["Cost / lot", (r) => fmtUsd(r.cost)], ["Judged", (r) => r.comparisons]],
+    tip: (r) => `usability ${r.meanUsability.toFixed(1)} / 10 · ${r.winRateVsReference == null ? "reference" : "wins " + fmtPct(r.winRateVsReference) + " vs reference"}`,
+  });
+  if (!el) continue;
+  const note = document.createElement("p");
+  note.className = "judged-note";
+  note.textContent = `Calibration: ${j.reference} against its own second try won ${fmtPct(cal.referenceSelfWinRate)} (a fair judge is near 50%). The judge gave the same verdict in both orders on ${fmtPct(cal.orderAgreement)} of ${cal.pairs} pairs. ${j.method || ""}`;
+  el.querySelector(".notes").prepend(note);
+  jobs.appendChild(el);
+}
+
+const providers = new Set([...DATA.tasks.area, ...DATA.tasks.stall].map((r) => r.provider));
+document.getElementById("legend").innerHTML = [...providers].map((p) => `<span><i class="sw" style="background:${COLORS[p] || COLORS.Other}"></i>${esc(p)}</span>`).join("") + `<span><i class="sw" style="background:transparent;border:2.5px solid var(--paint)"></i>On the frontier</span>`;
+</script>

@@ -256,6 +256,14 @@ def _case_from_propaving(args: argparse.Namespace) -> int:
     return 0
 
 
+def _report_html(args: argparse.Namespace) -> int:
+    from .html_report import write_html_report
+
+    write_html_report(args.runs, args.out, args.title, args.subtitle, judged=args.judged)
+    print(f"Wrote HTML report to {args.out}")
+    return 0
+
+
 def _leaderboard(args: argparse.Namespace) -> int:
     write_leaderboard(args.runs, args.out, judged=args.judged)
     print(f"Wrote leaderboard to {args.out}")
@@ -341,6 +349,14 @@ def build_parser() -> argparse.ArgumentParser:
     score_runs.add_argument("--allow-guide", action="store_true")
     score_runs.add_argument("--judged", action="append", help="Judged-task results JSON (pavebench/judged.py); repeatable")
     score_runs.set_defaults(func=_score_runs)
+
+    report = subparsers.add_parser("report-html", help="Render a self-contained HTML leaderboard with frontier charts")
+    report.add_argument("--runs", required=True)
+    report.add_argument("--out", required=True)
+    report.add_argument("--title", default="PaveBench Leaderboard")
+    report.add_argument("--subtitle", default="")
+    report.add_argument("--judged", action="append")
+    report.set_defaults(func=_report_html)
 
     leaderboard = subparsers.add_parser("leaderboard", help="Render the leaderboard markdown from a runs manifest")
     leaderboard.add_argument("--runs", required=True, help="Path to runs manifest JSONL (system/track/automation/scorePath)")

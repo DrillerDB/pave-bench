@@ -82,3 +82,11 @@ def test_judged_section_renders_with_calibration(tmp_path):
     text = "\n".join(render_judged_section(data, tmp_path))
     assert "judged by claude-opus-5-5, no gold" in text and "Calibration" in text and "| Ref |" in text
     assert (tmp_path / "frontier-stripe_lines-cost.svg").exists()
+
+
+def test_report_html_embeds_data(tmp_path):
+    test_score_runs_scopes_tasks_and_renders_frontier(tmp_path)
+    out = tmp_path / "report.html"
+    assert main(["report-html", "--runs", str(tmp_path / "runs.jsonl"), "--out", str(out), "--title", "T", "--subtitle", "S"]) == 0
+    html = out.read_text()
+    assert "<title>T</title>" in html and '"system": "A"' in html and "__DATA__" not in html
