@@ -70,35 +70,18 @@ def build_hero(out: Path) -> str:
     # Vector overlay in crop pixel space.
     outline = _path(boundary, x0, y0)
     islands = "".join(f'<path class="ov-island" d="{_path(r, x0, y0)}"/>' for r in cutouts)
-    sqft = meta.get("referenceSquareFeet")
-    # Callout anchored on the boundary vertex nearest the top-left corner, label in the corner.
-    ax, ay = min(boundary, key=lambda p: math.hypot(p[0] - x0, p[1] - y0))
-    ax, ay = ax - x0, ay - y0
-    bw, bh = cw * 0.40, ch * 0.105
-    bx, by = cw * 0.03, ch * 0.03
     fs = ch * 0.032
     scale_m = 50
     scale_px = scale_m / gsd
     sbx, sby = cw * 0.04, ch * 0.95
-    nx, ny = cw * 0.93, ch * 0.07
     svg = f"""<svg class="overlay" viewBox="0 0 {cw} {ch}" preserveAspectRatio="none" aria-hidden="true">
   <path class="ov-outline" d="{outline}" style="--len:{_perimeter(boundary):.0f}" stroke-width="{max(3, cw / 260):.1f}"/>
   {islands}
-  <g class="ov-callout">
-    <path class="ov-callout-line" d="M{ax:.1f},{ay:.1f} L{bx + bw * 0.55:.1f},{by + bh:.1f}"/>
-    <rect class="ov-callout-box" x="{bx:.1f}" y="{by:.1f}" width="{bw:.1f}" height="{bh:.1f}" rx="2"/>
-    <text class="ov-callout-t" x="{bx + fs * 0.6:.1f}" y="{by + fs * 1.35:.1f}" font-size="{fs:.1f}">{escape(f"{sqft:,.0f} sq ft paved" if sqft else "Paved area")}</text>
-    <text class="ov-callout-s" x="{bx + fs * 0.6:.1f}" y="{by + fs * 2.55:.1f}" font-size="{fs * 0.72:.1f}">{len(cutouts)} islands · hand trace</text>
-  </g>
   <g class="ov-scale">
     <rect class="k" x="{sbx:.1f}" y="{sby:.1f}" width="{scale_px / 2:.1f}" height="{ch * 0.009:.1f}"/>
     <rect x="{sbx + scale_px / 2:.1f}" y="{sby:.1f}" width="{scale_px / 2:.1f}" height="{ch * 0.009:.1f}"/>
     <text x="{sbx:.1f}" y="{sby - ch * 0.012:.1f}" font-size="{fs * 0.7:.1f}">0</text>
     <text x="{sbx + scale_px:.1f}" y="{sby - ch * 0.012:.1f}" font-size="{fs * 0.7:.1f}" text-anchor="middle">{scale_m} m</text>
-  </g>
-  <g class="ov-north">
-    <path d="M{nx:.1f},{ny - ch * 0.04:.1f} L{nx + cw * 0.016:.1f},{ny + ch * 0.012:.1f} L{nx:.1f},{ny:.1f} L{nx - cw * 0.016:.1f},{ny + ch * 0.012:.1f} Z"/>
-    <text x="{nx:.1f}" y="{ny + ch * 0.045:.1f}" font-size="{fs * 0.75:.1f}" text-anchor="middle">N</text>
   </g>
 </svg>"""
     return (
