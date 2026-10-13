@@ -17,6 +17,7 @@
   // ---- Rows per task -------------------------------------------------------
   const judged = (DATA.judged || [])[0] || null;
   const ROWS = {
+    composite: (DATA.tasks.composite || []).map((r) => ({ ...r, time: r.p50 })),
     area: DATA.tasks.area.map((r) => ({ ...r, cost: r.cost, time: r.p50 })),
     stall: DATA.tasks.stall.map((r) => ({ ...r, time: r.p50 })),
     stripe: judged
@@ -44,6 +45,19 @@
   }
 
   const TASKS = {
+    composite: {
+      blurb: "One score for a full takeoff: the mean of the three job scores, each on 0 to 1 (outline IoU, stall count accuracy, judged stripe usability out of 10), for systems that ran all three jobs with the same setup. Cost and time cover all three jobs on one lot.",
+      acc: "Composite score",
+      cols: [
+        ["Composite", (r) => r.accuracy, (r) => `<span class="bar" style="width:${Math.round(r.accuracy * 60)}px"></span>${r.accuracy.toFixed(3)}`],
+        ["Outline IoU", (r) => r.components.area, (r) => r.components.area.toFixed(3)],
+        ["Stall accuracy", (r) => r.components.stall, (r) => pct(r.components.stall, 1)],
+        ["Stripe usability", (r) => r.components.stripe, (r) => (r.components.stripe * 10).toFixed(1)],
+        ["Time / lot", (r) => -(r.time ?? 1e12), (r) => secs(r.time)],
+        ["Cost / lot", (r) => -(r.cost ?? 1e9), (r) => usd(r.cost)],
+      ],
+      note: "Equal weights. The stripe component is judged, not scored against hand-traced lines, and the stall component has no per-stall placement check yet; a system held off either job's frontier is held off this one too.",
+    },
     area: {
       blurb: "Trace the paved area around a tapped point with islands cut out. Ranked by mean overlap (IoU) with the hand trace over every try.",
       acc: "Mean IoU",
@@ -102,7 +116,7 @@
   // ---- Leaderboard ----------------------------------------------------------
   const vendors = [...new Set(Object.values(ROWS).flat().map((r) => r.provider))].sort();
   const shown = new Set(vendors);
-  let task = "area";
+  let task = "composite";
   let sortCol = 0, sortDir = -1;
   const filters = document.getElementById("filters");
   filters.innerHTML = vendors.map((v) => `<button class="chip" type="button" data-v="${esc(v)}" aria-pressed="true"><i style="background:${color(v)}"></i>${esc(v)}</button>`).join("");
@@ -203,14 +217,14 @@
       placed.push({ l: left, r: left + w, t: ty - h, b: ty });
       g += `<text class="lab" x="${anchor === "end" ? x - 12 : x + 12}" y="${ty}" text-anchor="${anchor}">${esc(text)}</text>`;
     });
-    g += `<text class="axl" x="${L + pw / 2}" y="${H - 10}" text-anchor="middle">${axis === "cost" ? "Mean cost per lot (log scale, left is better)" : "Median time per lot (log scale, left is better)"}</text>`;
+    g += `<text class="axl" x="${L + pw / 2}" y="${H - 10}" text-anchor="middle">${axis === "cost" ? (task === "composite" ? "Cost per lot, all three jobs (log scale, left is better)" : "Mean cost per lot (log scale, left is better)") : (task === "composite" ? "Time per lot, all three jobs (log scale, left is better)" : "Median time per lot (log scale, left is better)")}</text>`;
     g += `<text class="axl" transform="translate(16 ${T + ph / 2}) rotate(-90)" text-anchor="middle">${esc(TASKS[task].acc)}${task === "stripe" ? " (0–10)" : ""}, up is better</text>`;
     svg.innerHTML = g;
     svg.querySelectorAll(".pt").forEach((p) => {
       const r = rows.find((x) => x.system === p.dataset.s);
       const show = (e) => {
         tip.hidden = false;
-        tip.innerHTML = `<b>${esc(r.system)}</b> · ${esc(r.provider)}<br>${esc(TASKS[task].acc)}: ${task === "stripe" ? r.usability.toFixed(1) : task === "stall" ? pct(r.accuracy, 1) : r.accuracy.toFixed(3)}<br>${usd(r.cost)} per lot · ${secs(r.time)} median`;
+        tip.innerHTML = `<b>${esc(r.system)}</b> · ${esc(r.provider)}<br>${esc(TASKS[task].acc)}: ${task === "stripe" ? r.usability.toFixed(1) : task === "stall" ? pct(r.accuracy, 1) : r.accuracy.toFixed(3)}${task === "composite" ? `<br>outline ${r.components.area.toFixed(2)} · stalls ${pct(r.components.stall)} · stripes ${(r.components.stripe * 10).toFixed(1)}` : ""}<br>${usd(r.cost)} per lot · ${secs(r.time)} median`;
         tip.style.left = Math.min(e.clientX + 14, innerWidth - 310) + "px";
         tip.style.top = e.clientY + 14 + "px";
       };

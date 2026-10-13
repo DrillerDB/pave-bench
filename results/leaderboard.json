@@ -811,6 +811,263 @@
     "cost": null,
     "excluded": false
    }
+  ],
+  "composite": [
+   {
+    "system": "GPT-6 Astra",
+    "provider": "OpenAI",
+    "accuracy": 0.8325785310766666,
+    "components": {
+     "area": 0.8815683444,
+     "stall": 0.87788599883,
+     "stripe": 0.73828125
+    },
+    "cost": 1.4184113333333332,
+    "p50": 345026.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Reference system for the judged task. Priority tier; reasoning effort medium (low for stall counts)."
+   },
+   {
+    "system": "GPT-6.1 Sol",
+    "provider": "OpenAI",
+    "accuracy": 0.7418695437781111,
+    "components": {
+     "area": 0.6516798479,
+     "stall": 0.890595450101,
+     "stripe": 0.6833333333333333
+    },
+    "cost": 0.26642846666666664,
+    "p50": 283929.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Same prompt and settings as GPT-6 Astra. Price $2/$10 per MTok from secondary sources."
+   },
+   {
+    "system": "Gemini 4 Argon, 0-1000 grid",
+    "provider": "Google",
+    "accuracy": 0.7229609859584444,
+    "components": {
+     "area": 0.6519541127,
+     "stall": 0.921095511842,
+     "stripe": 0.5958333333333333
+    },
+    "cost": 0.18282516666666668,
+    "p50": 119876.5,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Prompt built for a 1000x1000 frame; answer scaled to pixels."
+   },
+   {
+    "system": "Claude Fable 5.1",
+    "provider": "Anthropic",
+    "accuracy": 0.6267920735063333,
+    "components": {
+     "area": 0.7726491304,
+     "stall": 0.857727090119,
+     "stripe": 0.25
+    },
+    "cost": 1.5086205,
+    "p50": 255526.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls."
+   },
+   {
+    "system": "Claude Fable 5.1, image at 1568 px",
+    "provider": "Anthropic",
+    "accuracy": 0.6056689071213333,
+    "components": {
+     "area": 0.7063341035,
+     "stall": 0.798172617864,
+     "stripe": 0.3125
+    },
+    "cost": 1.384449,
+    "p50": 252346.5,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Image downscaled to 1568 px long edge (answer scaled back). Kept to show the cost of lower resolution; Claude often declined to count stalls it called too faint."
+   },
+   {
+    "system": "Muse Wonder",
+    "provider": "Meta",
+    "accuracy": 0.5920079145134444,
+    "components": {
+     "area": 0.7882147082,
+     "stall": 0.766975702007,
+     "stripe": 0.22083333333333335
+    },
+    "cost": null,
+    "p50": 115155.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Through the muse exec CLI (contributor mode off) with --output-schema; image resized to 1568 px. The CLI reports no tokens, so no cost (API list price $4/$20 per MTok)."
+   },
+   {
+    "system": "Muse Wonder Full",
+    "provider": "Meta",
+    "accuracy": 0.5864920555076666,
+    "components": {
+     "area": 0.7475261044,
+     "stall": 0.824450062123,
+     "stripe": 0.1875
+    },
+    "cost": null,
+    "p50": 281554.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Through the muse exec CLI (contributor mode off) with --output-schema; image resized to 1568 px. Subscription-only model: no per-call cost."
+   },
+   {
+    "system": "Gemini 4 Argon, pixel prompt",
+    "provider": "Google",
+    "accuracy": 0.5734128039691111,
+    "components": {
+     "area": 0.3612759802,
+     "stall": 0.950629098374,
+     "stripe": 0.4083333333333333
+    },
+    "cost": 0.23746066666666668,
+    "p50": 177777.0,
+    "excluded": true,
+    "frontierNote": "its stall centers are often in the wrong place (mixed coordinate frames, checked on overlays); this set has no per-stall gold markers, so count-only scoring cannot see it.",
+    "notes": "Pixel-coordinate prompt; often answers one or both axes on its 0-1000 grid."
+   },
+   {
+    "system": "Claude Opus 5.5, image at 1568 px",
+    "provider": "Anthropic",
+    "accuracy": 0.564632366305111,
+    "components": {
+     "area": 0.8377303006,
+     "stall": 0.397833464982,
+     "stripe": 0.4583333333333333
+    },
+    "cost": 0.330584,
+    "p50": 112255.5,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Image downscaled to 1568 px long edge (answer scaled back). Kept to show the cost of lower resolution; Claude often declined to count stalls it called too faint."
+   },
+   {
+    "system": "GPT-6 Sol",
+    "provider": "OpenAI",
+    "accuracy": 0.48636497305977777,
+    "components": {
+     "area": 0.5703722952,
+     "stall": 0.580389290646,
+     "stripe": 0.30833333333333335
+    },
+    "cost": 0.2266428,
+    "p50": 96086.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Same prompt and settings as GPT-6 Astra. Price $2/$10 per MTok from secondary sources."
+   },
+   {
+    "system": "Gemini 4 Argon, pixel prompt, ultra image",
+    "provider": "Google",
+    "accuracy": 0.46763090098777776,
+    "components": {
+     "area": 0.4087763153,
+     "stall": 0.76078305433,
+     "stripe": 0.23333333333333334
+    },
+    "cost": 0.23972049999999998,
+    "p50": 131204.0,
+    "excluded": true,
+    "frontierNote": "its stall centers are often in the wrong place (mixed coordinate frames, checked on overlays); this set has no per-stall gold markers, so count-only scoring cannot see it.",
+    "notes": "Pixel prompt with per-part ultra_high media resolution; same mixed-axis fault."
+   },
+   {
+    "system": "Claude Opus 5.5",
+    "provider": "Anthropic",
+    "accuracy": 0.4622007076104444,
+    "components": {
+     "area": 0.6948979805,
+     "stall": 0.420870808998,
+     "stripe": 0.27083333333333337
+    },
+    "cost": 0.368383,
+    "p50": 113339.5,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls."
+   },
+   {
+    "system": "Claude Sonnet 5.5, image at 1568 px",
+    "provider": "Anthropic",
+    "accuracy": 0.2971795378518889,
+    "components": {
+     "area": 0.5556195305,
+     "stall": 0.18175241638900008,
+     "stripe": 0.15416666666666667
+    },
+    "cost": 0.04621566666666667,
+    "p50": 15810.5,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Image downscaled to 1568 px long edge (answer scaled back). Kept to show the cost of lower resolution; Claude often declined to count stalls it called too faint."
+   },
+   {
+    "system": "Claude Haiku 5.5, image at 1568 px",
+    "provider": "Anthropic",
+    "accuracy": 0.29340232656744447,
+    "components": {
+     "area": 0.6172194889,
+     "stall": 0.1296541574690001,
+     "stripe": 0.13333333333333333
+    },
+    "cost": 0.004847708333333332,
+    "p50": 29768.5,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Image downscaled to 1568 px long edge (answer scaled back). Kept to show the cost of lower resolution; Claude often declined to count stalls it called too faint."
+   },
+   {
+    "system": "Claude Sonnet 5.5",
+    "provider": "Anthropic",
+    "accuracy": 0.26815011761366664,
+    "components": {
+     "area": 0.5685419924,
+     "stall": 0.160908360441,
+     "stripe": 0.075
+    },
+    "cost": 0.05434166666666666,
+    "p50": 16539.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls."
+   },
+   {
+    "system": "Claude Haiku 5.5",
+    "provider": "Anthropic",
+    "accuracy": 0.23672089442355557,
+    "components": {
+     "area": 0.570417378,
+     "stall": 0.08557863860400006,
+     "stripe": 0.05416666666666666
+    },
+    "cost": 0.004968616666666667,
+    "p50": 27678.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls."
+   },
+   {
+    "system": "GPT-6 Luna",
+    "provider": "OpenAI",
+    "accuracy": 0.20792206631933335,
+    "components": {
+     "area": 0.4330127743,
+     "stall": 0.06575342465800005,
+     "stripe": 0.125
+    },
+    "cost": 0.007779831666666667,
+    "p50": 65071.5,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Same prompt and settings as GPT-6 Astra. Price $0.10/$0.50 per MTok from secondary sources."
+   }
   ]
  },
  "judged": [

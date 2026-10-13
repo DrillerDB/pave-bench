@@ -4,6 +4,34 @@ Latency class: **INSTANT** = p95 wall-clock <= 10 s, **FAST** <= 60 s, **BATCH**
 
 *Cases* reads `lots x tries` when each lot was attempted more than once; every attempt is scored. *Valid* is the share of attempts that returned a usable polygon (simple outer ring, holes inside it and apart, every vertex on the image). *App-valid* is the share the submitting application's own validator accepted, when the submission reports it.
 
+## Composite: full takeoff (lot outline + stall count + striping)
+
+Mean of the three job scores on 0-1 (outline mean IoU, stall count accuracy, judged stripe usability / 10), for systems that ran all three jobs with the same configuration. Cost and time are for all three jobs on one lot. The stripe component is judged, not gold-scored.
+
+| # | System | Composite | Outline IoU | Stall accuracy | Stripe usability | Time / lot | Cost / lot |
+|---|---|---|---|---|---|---|---|
+| 1 | GPT-6 Astra | 0.833 | 0.882 | 87.8% | 7.4 | 345 s | $1.418 |
+| 2 | GPT-6.1 Sol | 0.742 | 0.652 | 89.1% | 6.8 | 284 s | $0.266 |
+| 3 | Gemini 4 Argon, 0-1000 grid | 0.723 | 0.652 | 92.1% | 6.0 | 120 s | $0.183 |
+| 4 | Claude Fable 5.1 | 0.627 | 0.773 | 85.8% | 2.5 | 256 s | $1.509 |
+| 5 | Claude Fable 5.1, image at 1568 px | 0.606 | 0.706 | 79.8% | 3.1 | 252 s | $1.384 |
+| 6 | Muse Wonder | 0.592 | 0.788 | 76.7% | 2.2 | 115 s | - |
+| 7 | Muse Wonder Full | 0.586 | 0.748 | 82.4% | 1.9 | 282 s | - |
+| 8 | Gemini 4 Argon, pixel prompt (held off frontier) | 0.573 | 0.361 | 95.1% | 4.1 | 178 s | $0.237 |
+| 9 | Claude Opus 5.5, image at 1568 px | 0.565 | 0.838 | 39.8% | 4.6 | 112 s | $0.331 |
+| 10 | GPT-6 Sol | 0.486 | 0.570 | 58.0% | 3.1 | 96 s | $0.227 |
+| 11 | Gemini 4 Argon, pixel prompt, ultra image (held off frontier) | 0.468 | 0.409 | 76.1% | 2.3 | 131 s | $0.240 |
+| 12 | Claude Opus 5.5 | 0.462 | 0.695 | 42.1% | 2.7 | 113 s | $0.368 |
+| 13 | Claude Sonnet 5.5, image at 1568 px | 0.297 | 0.556 | 18.2% | 1.5 | 16 s | $0.046 |
+| 14 | Claude Haiku 5.5, image at 1568 px | 0.293 | 0.617 | 13.0% | 1.3 | 30 s | $0.005 |
+| 15 | Claude Sonnet 5.5 | 0.268 | 0.569 | 16.1% | 0.8 | 17 s | $0.054 |
+| 16 | Claude Haiku 5.5 | 0.237 | 0.570 | 8.6% | 0.5 | 28 s | $0.005 |
+| 17 | GPT-6 Luna | 0.208 | 0.433 | 6.6% | 1.2 | 65 s | $0.008 |
+
+![frontier-composite-cost.svg](frontier-composite-cost.svg)
+
+Frontier: Claude Haiku 5.5, image at 1568 px → Claude Sonnet 5.5, image at 1568 px → Gemini 4 Argon, 0-1000 grid → GPT-6.1 Sol → GPT-6 Astra
+
 ## Paved-area takeoff
 
 | System | Track | Automation | Cases | Pass | Valid | App-valid | mean IoU | median areaΔ | p90 areaΔ | cutout recov. | p50 latency | p95 latency | Latency class | mean cost | INSTANT |

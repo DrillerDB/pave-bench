@@ -63,12 +63,13 @@
       <p class="sec-sub" id="board-sub"></p>
     </div>
     <div class="tabs" role="tablist" aria-label="Job">
-      <button role="tab" id="tab-area" aria-controls="panel" aria-selected="true" data-task="area">Lot outlines</button>
+      <button role="tab" id="tab-composite" aria-controls="panel" aria-selected="true" data-task="composite">Composite</button>
+      <button role="tab" id="tab-area" aria-controls="panel" aria-selected="false" data-task="area">Lot outlines</button>
       <button role="tab" id="tab-stall" aria-controls="panel" aria-selected="false" data-task="stall">Stall counts</button>
       <button role="tab" id="tab-stripe" aria-controls="panel" aria-selected="false" data-task="stripe">Stripe lines <span class="judged-tag">judged</span></button>
     </div>
     <div class="filters" id="filters" aria-label="Filter by vendor"></div>
-    <div id="panel" role="tabpanel" aria-labelledby="tab-area">
+    <div id="panel" role="tabpanel" aria-labelledby="tab-composite">
       <p class="task-blurb" id="task-blurb"></p>
       <div class="table-scroll"><table class="lb" id="lb"></table></div>
       <p class="table-note" id="table-note"></p>
@@ -82,7 +83,8 @@
     </div>
     <div class="chart-controls">
       <div class="seg" role="group" aria-label="Job" id="seg-task">
-        <button data-task="area" aria-pressed="true">Lot outlines</button>
+        <button data-task="composite" aria-pressed="true">Composite</button>
+        <button data-task="area" aria-pressed="false">Lot outlines</button>
         <button data-task="stall" aria-pressed="false">Stall counts</button>
         <button data-task="stripe" aria-pressed="false">Stripe lines</button>
       </div>
@@ -125,6 +127,8 @@
       <div class="prose">
         <h3>Accuracy</h3>
         <p>Lot outlines report mean IoU over every try, with an unusable polygon counted as zero, plus pass rate (IoU of at least 0.86, area within 8%, islands within two, and the tapped point inside). Stall counts report mean absolute count error and the share of tries within 10% of the hand count.</p>
+        <h3>Composite</h3>
+        <p>The composite is the plain average of the three job scores, each on 0 to 1: outline IoU, stall count accuracy, and judged stripe usability out of 10. It covers only systems that ran all three jobs with the same setup, and its cost and time are for all three jobs on one lot.</p>
         <h3>Every try counts</h3>
         <p>Each system attempts each lot two or three times. Tables and charts use all of them, so a system that is right once and wrong twice is scored that way.</p>
         <h3>Cost and time</h3>

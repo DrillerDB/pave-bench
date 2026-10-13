@@ -90,3 +90,20 @@ def test_report_html_embeds_data(tmp_path):
     assert main(["report-html", "--runs", str(tmp_path / "runs.jsonl"), "--out", str(out), "--title", "T", "--subtitle", "S"]) == 0
     html = out.read_text()
     assert "<title>T</title>" in html and '"system": "A"' in html and "__DATA__" not in html
+
+
+def test_composite_joins_three_jobs_and_sums_cost():
+    from pavebench.composite import composite_rows
+
+    area = [{"system": "A", "provider": "X", "accuracy": 0.9, "cost": 0.5, "p50": 60000, "excluded": False},
+            {"system": "B", "provider": "Y", "accuracy": 0.6, "cost": 0.1, "p50": 20000, "excluded": False}]
+    stall = [{"system": "A", "provider": "X", "accuracy": 0.8, "cost": 0.4, "p50": 30000, "excluded": False},
+             {"system": "B", "provider": "Y", "accuracy": 0.9, "cost": 0.05, "p50": 10000, "excluded": True, "frontierNote": "placement"}]
+    judged = [{"task": "stripe_lines", "systems": [
+        {"system": "A", "meanUsability": 7.0, "meanCostUsd": 0.6, "p50LatencyMs": 200000},
+        {"system": "B", "meanUsability": 6.0, "meanCostUsd": None, "p50LatencyMs": 50000}]}]
+    rows = composite_rows(area, stall, judged)
+    assert [r["system"] for r in rows] == ["A", "B"]
+    assert abs(rows[0]["accuracy"] - (0.9 + 0.8 + 0.7) / 3) < 1e-9
+    assert abs(rows[0]["cost"] - 1.5) < 1e-9 and rows[0]["p50"] == 290000
+    assert rows[1]["cost"] is None and rows[1]["excluded"]  # unpriced job, inherited exclusion

@@ -231,6 +231,24 @@ def write_leaderboard(
     out = Path(out_path)
     frontier = write_frontier_charts(runs, out.parent) if charts else None
     text = render_leaderboard(runs, frontier)
+    if judged:
+        # Composite needs every job, so it exists only when a judged stripe file is given.
+        from .composite import render_composite_section
+        from .frontier import FrontierPoint, pareto_front, render_frontier_svg
+        from .html_report import report_data
+
+        rows = report_data(runs_path, judged)["tasks"]["composite"]
+        chart, front = None, None
+        points = [FrontierPoint(r["system"], r["cost"], r["accuracy"]) for r in rows if r["cost"] and not r["excluded"]]
+        if charts and len(points) >= 2:
+            chart = "frontier-composite-cost.svg"
+            (out.parent / chart).write_text(
+                render_frontier_svg(points, "Cost per lot, all three jobs", "Composite score", "$", "Full takeoff: composite vs cost"), encoding="utf-8"
+            )
+            front = [p.system for p in pareto_front(points)]
+        # Composite goes first: it is the headline table.
+        head, _, rest = text.partition("## ")
+        text = head + "\n".join(render_composite_section(rows, chart, front)) + "\n## " + rest
     for path in judged or []:
         text = text.rstrip() + "\n\n" + "\n".join(render_judged_section(load_judged(path), out.parent if charts else None)).rstrip() + "\n"
     out.write_text(text, encoding="utf-8")

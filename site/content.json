@@ -2,16 +2,16 @@
  "edition": "October 2026",
  "findings": [
   {
+   "big": "0.833",
+   "text": "GPT-6 Astra has the best composite score across all three jobs, at $1.42 per lot for a full takeoff. GPT-6.1 Sol (0.742, $0.27) and Gemini 4 Argon on its 0-1000 grid (0.723, $0.18, fastest) are the cheaper frontier."
+  },
+  {
    "big": "0.881 vs 0.882",
    "text": "No system beats GPT-6 Astra on lot outlines, but Gemini 4 Argon ties it at 28% of the cost when it thinks longer, gets one geometry rule and one retry. It takes about twice as long."
   },
   {
    "big": "7.4% error",
    "text": "Gemini 4 Argon counts stalls best when asked for coordinates on its native 0-1000 grid: 7.4% mean error against 12.2% for GPT-6 Astra, at about one eighth of the cost."
-  },
-  {
-   "big": "6.8 of 10",
-   "text": "Striping has no hand-traced answers yet. A blinded judge prefers GPT-6 Astra (7.4); GPT-6.1 Sol comes closest at about a fifth of the cost."
   }
  ]
 }

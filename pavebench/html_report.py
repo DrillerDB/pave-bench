@@ -16,6 +16,7 @@ from html import escape
 from pathlib import Path
 from typing import Any
 
+from .composite import composite_rows
 from .judged import load_judged
 from .leaderboard import load_runs
 
@@ -84,6 +85,7 @@ def report_data(runs_path: str | Path, judged_paths: list[str | Path] | None = N
     for j in judged:
         for s in j.get("systems", []):
             s["provider"] = providers.get(s["system"], "Other")
+    tasks["composite"] = composite_rows(tasks["area"], tasks["stall"], judged)
     return {"tasks": tasks, "judged": judged}
 
 

@@ -12,6 +12,13 @@ per task: accuracy against mean cost per lot, and accuracy against median latenc
 | `stall_count` | 1 - mean absolute count error | pass rate (within 10%), median and p90 error; precision/recall when gold markers exist |
 | `stripe_lines` (judged) | Judged usability / 10 | win rate against the reference system, fault rates |
 
+**Composite (full takeoff).** For systems that ran all three jobs with the same
+configuration: the mean of the three accuracies above (stripe usability divided by 10),
+equal weights. Cost and time are the three per-lot costs and median times added, the
+price and wait of one full takeoff. A system held off any job's frontier is held off the
+composite frontier. Implemented in `pavebench/composite.py`; it leads `leaderboard.md`,
+`leaderboard.json` (`tasks.composite`) and the site.
+
 A system is on a frontier when no other system is at least as accurate and cheaper (or
 faster). A submitter may keep a system off one task's frontier with a stated reason
 (`frontierExclude` + `frontierNote` in the runs row). Use this only for a fault the
