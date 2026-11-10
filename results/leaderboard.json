@@ -266,6 +266,26 @@
     "excluded": false
    },
    {
+    "system": "Claude Fable 5.2",
+    "provider": "Anthropic",
+    "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls. Same adapter and settings as the Claude Fable 5.1 row. Price $8/$40 per MTok (claude-api skill model table, 2026-11-03). Run 2026-11-10.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.6897795717,
+    "passRate": 0.3333333333333333,
+    "attempts": 12,
+    "lots": 4,
+    "valid": 0.8333333333333334,
+    "appValid": 0.833333,
+    "medianAreaDelta": 0.0678935348,
+    "p90AreaDelta": 1.0,
+    "cutoutRecovery": 0.6436508163,
+    "p50": 10711.0,
+    "p95": 22617.0,
+    "cost": 0.081765,
+    "excluded": false
+   },
+   {
     "system": "Claude Haiku 5.5",
     "provider": "Anthropic",
     "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls.",
@@ -820,6 +840,25 @@
     "excluded": false
    },
    {
+    "system": "Claude Fable 5.2",
+    "provider": "Anthropic",
+    "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls. Same adapter and settings as the Claude Fable 5.1 row. Price $8/$40 per MTok (claude-api skill model table, 2026-11-03). Run 2026-11-10.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.704754148197,
+    "passRate": 0.4,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.295245851803,
+    "medianErr": 0.128205128205,
+    "p90Err": 1.0,
+    "appValid": 0.866667,
+    "p50": 37051.0,
+    "p95": 54224.0,
+    "cost": 0.162616,
+    "excluded": false
+   },
+   {
     "system": "Claude Haiku 5.5",
     "provider": "Anthropic",
     "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls.",
@@ -1276,6 +1315,21 @@
     "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls."
    },
    {
+    "system": "Claude Fable 5.2",
+    "provider": "Anthropic",
+    "accuracy": 0.6204001288545555,
+    "components": {
+     "area": 0.6897795717,
+     "stall": 0.704754148197,
+     "stripe": 0.4666666666666667
+    },
+    "cost": 0.842797,
+    "p50": 197454.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls. Same adapter and settings as the Claude Fable 5.1 row. Price $8/$40 per MTok (claude-api skill model table, 2026-11-03). Run 2026-11-10."
+   },
+   {
     "system": "Claude Fable 5.1, image at 1568 px",
     "provider": "Anthropic",
     "accuracy": 0.6056689071213333,
@@ -1507,7 +1561,7 @@
    "task": "stripe_lines",
    "judge": "claude-opus-5-5",
    "reference": "GPT-6 Astra",
-   "method": "No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's. Service-tier rows (2026-11-08): 192 more judgments by the same judge against the same GPT-6 Astra tries, $10.49; 0 refused; order agreement 81% over 96 pairs.",
+   "method": "No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's. Rows added later (service tiers 2026-11-08, Claude Fable 5.2 2026-11-10): 216 more judgments by the same judge against the same GPT-6 Astra tries, $11.87; 0 refused; order agreement 83% over 108 pairs.",
    "calibration": {
     "referenceSelfWinRate": 0.6666666666666666,
     "orderAgreement": 0.9494949494949495,
@@ -1656,6 +1710,22 @@
      },
      "p50LatencyMs": 173077,
      "meanCostUsd": 0.894425,
+     "provider": "Anthropic"
+    },
+    {
+     "system": "Claude Fable 5.2",
+     "note": "Same vendor as the judge (Claude Opus 5.5). Gemini 4 Argon re-judged its 24 pairs and agreed on 88%.",
+     "lots": 6,
+     "comparisons": 24,
+     "winRateVsReference": 0,
+     "meanUsability": 4.666666666666667,
+     "faults": {
+      "rowsMissedMean": 2.0416666666666665,
+      "linesWithoutPaintManyRate": 0.041666666666666664,
+      "hatchingOutlineOrMissingRate": 0.25
+     },
+     "p50LatencyMs": 149692,
+     "meanCostUsd": 0.5984160000000001,
      "provider": "Anthropic"
     },
     {
@@ -1933,7 +2003,7 @@
   }
  ],
  "meta": {
-  "updated": "2026-11-09",
+  "updated": "2026-11-10",
   "setName": "Private test split v0",
   "setDescription": "4 hand-traced lot outlines, 5 hand-counted stall lots and 6 striping lots on Mapbox Satellite imagery (not redistributed). Each system tried each lot 2-3 times.",
   "cases": 9,
@@ -1946,7 +2016,7 @@
    2.3,
    11.3
   ],
-  "systems": 31,
+  "systems": 32,
   "providers": [
    "Anthropic",
    "Google",

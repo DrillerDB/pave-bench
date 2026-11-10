@@ -75,28 +75,30 @@
 <text x="318.2" y="182.9" font-size="10.5" font-weight="700" fill="#6b7c8f">15</text>
 <circle cx="318.6" cy="193.3" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
 <text x="326.6" y="187.3" font-size="10.5" font-weight="700" fill="#6b7c8f">16</text>
+<circle cx="342.0" cy="195.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="350.0" y="189.8" font-size="10.5" font-weight="700" fill="#6b7c8f">17</text>
 <circle cx="296.5" cy="212.3" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="304.5" y="206.3" font-size="10.5" font-weight="700" fill="#6b7c8f">17</text>
+<text x="304.5" y="206.3" font-size="10.5" font-weight="700" fill="#6b7c8f">18</text>
 <circle cx="305.6" cy="214.1" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="313.6" y="208.1" font-size="10.5" font-weight="700" fill="#6b7c8f">18</text>
+<text x="313.6" y="208.1" font-size="10.5" font-weight="700" fill="#6b7c8f">19</text>
 <circle cx="346.5" cy="214.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="354.5" y="208.2" font-size="10.5" font-weight="700" fill="#6b7c8f">19</text>
+<text x="354.5" y="208.2" font-size="10.5" font-weight="700" fill="#6b7c8f">20</text>
 <circle cx="96.3" cy="230.8" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
-<text x="104.3" y="224.8" font-size="10.5" font-weight="700" fill="#d08a00">20</text>
+<text x="104.3" y="224.8" font-size="10.5" font-weight="700" fill="#d08a00">21</text>
 <circle cx="119.9" cy="253.4" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="127.9" y="247.4" font-size="10.5" font-weight="700" fill="#6b7c8f">21</text>
+<text x="127.9" y="247.4" font-size="10.5" font-weight="700" fill="#6b7c8f">22</text>
 <circle cx="350.4" cy="253.4" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="358.4" y="247.4" font-size="10.5" font-weight="700" fill="#6b7c8f">22</text>
+<text x="358.4" y="247.4" font-size="10.5" font-weight="700" fill="#6b7c8f">23</text>
 <circle cx="244.7" cy="254.3" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="252.7" y="248.3" font-size="10.5" font-weight="700" fill="#6b7c8f">23</text>
+<text x="252.7" y="248.3" font-size="10.5" font-weight="700" fill="#6b7c8f">24</text>
 <circle cx="231.2" cy="260.6" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="239.2" y="254.6" font-size="10.5" font-weight="700" fill="#6b7c8f">24</text>
+<text x="239.2" y="254.6" font-size="10.5" font-weight="700" fill="#6b7c8f">25</text>
 <circle cx="180.6" cy="319.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="188.6" y="313.8" font-size="10.5" font-weight="700" fill="#6b7c8f">25</text>
+<text x="188.6" y="313.8" font-size="10.5" font-weight="700" fill="#6b7c8f">26</text>
 <circle cx="330.7" cy="331.5" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="338.7" y="325.5" font-size="10.5" font-weight="700" fill="#6b7c8f">26</text>
+<text x="338.7" y="325.5" font-size="10.5" font-weight="700" fill="#6b7c8f">27</text>
 <circle cx="346.2" cy="354.4" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="354.2" y="348.4" font-size="10.5" font-weight="700" fill="#6b7c8f">27</text>
+<text x="354.2" y="348.4" font-size="10.5" font-weight="700" fill="#6b7c8f">28</text>
 <text x="548" y="50" font-size="11" font-weight="700" fill="#1b1f22">Systems (best first)</text>
 <text x="548" y="68" font-size="10.5" fill="#a86f00" font-weight="700">1. GPT-6 Astra</text>
 <text x="548" y="83" font-size="10.5" fill="#a86f00" font-weight="700">2. Gemini 4 Argon, grid, high thinking, geomet…</text>
@@ -114,16 +116,17 @@
 <text x="548" y="263" font-size="10.5" fill="#3d464c" font-weight="400">14. Claude Fable 5.1, image at 1568 px</text>
 <text x="548" y="278" font-size="10.5" fill="#3d464c" font-weight="400">15. Gemini 4 Argon, grid, ultra image</text>
 <text x="548" y="293" font-size="10.5" fill="#3d464c" font-weight="400">16. Claude Opus 5.5</text>
-<text x="548" y="308" font-size="10.5" fill="#3d464c" font-weight="400">17. GPT-6.1 Terra, Fast tier</text>
-<text x="548" y="323" font-size="10.5" fill="#3d464c" font-weight="400">18. Gemini 4 Argon, 0-1000 grid</text>
-<text x="548" y="338" font-size="10.5" fill="#3d464c" font-weight="400">19. GPT-6.1 Sol</text>
-<text x="548" y="353" font-size="10.5" fill="#a86f00" font-weight="700">20. Claude Haiku 5.5, image at 1568 px</text>
-<text x="548" y="368" font-size="10.5" fill="#3d464c" font-weight="400">21. Claude Haiku 5.5</text>
-<text x="548" y="383" font-size="10.5" fill="#3d464c" font-weight="400">22. GPT-6 Sol</text>
-<text x="548" y="398" font-size="10.5" fill="#3d464c" font-weight="400">23. Claude Sonnet 5.5</text>
-<text x="548" y="413" font-size="10.5" fill="#3d464c" font-weight="400">24. Claude Sonnet 5.5, image at 1568 px</text>
-<text x="548" y="428" font-size="10.5" fill="#3d464c" font-weight="400">25. GPT-6 Luna</text>
-<text x="548" y="443" font-size="10.5" fill="#3d464c" font-weight="400">26. Gemini 4 Argon, pixel prompt, ultra image</text>
-<text x="548" y="458" font-size="10.5" fill="#3d464c" font-weight="400">27. Gemini 4 Argon, pixel prompt</text>
-<text x="548" y="481" font-size="10" fill="#5a6166">Gold = on the frontier</text>
+<text x="548" y="308" font-size="10.5" fill="#3d464c" font-weight="400">17. Claude Fable 5.2</text>
+<text x="548" y="323" font-size="10.5" fill="#3d464c" font-weight="400">18. GPT-6.1 Terra, Fast tier</text>
+<text x="548" y="338" font-size="10.5" fill="#3d464c" font-weight="400">19. Gemini 4 Argon, 0-1000 grid</text>
+<text x="548" y="353" font-size="10.5" fill="#3d464c" font-weight="400">20. GPT-6.1 Sol</text>
+<text x="548" y="368" font-size="10.5" fill="#a86f00" font-weight="700">21. Claude Haiku 5.5, image at 1568 px</text>
+<text x="548" y="383" font-size="10.5" fill="#3d464c" font-weight="400">22. Claude Haiku 5.5</text>
+<text x="548" y="398" font-size="10.5" fill="#3d464c" font-weight="400">23. GPT-6 Sol</text>
+<text x="548" y="413" font-size="10.5" fill="#3d464c" font-weight="400">24. Claude Sonnet 5.5</text>
+<text x="548" y="428" font-size="10.5" fill="#3d464c" font-weight="400">25. Claude Sonnet 5.5, image at 1568 px</text>
+<text x="548" y="443" font-size="10.5" fill="#3d464c" font-weight="400">26. GPT-6 Luna</text>
+<text x="548" y="458" font-size="10.5" fill="#3d464c" font-weight="400">27. Gemini 4 Argon, pixel prompt, ultra image</text>
+<text x="548" y="473" font-size="10.5" fill="#3d464c" font-weight="400">28. Gemini 4 Argon, pixel prompt</text>
+<text x="548" y="496" font-size="10" fill="#5a6166">Gold = on the frontier</text>
 </svg>
