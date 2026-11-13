@@ -165,9 +165,16 @@ def card_frontier() -> str:
         text = model_of(r["system"])
         w, h = len(text) * 12.6, 26
         spots = [(x + 22, y + 9), (x - 22 - w, y + 9), (x - w / 2, y - 24), (x - w / 2, y + 44),
-                 (x + 18, y - 20), (x - 18 - w, y - 20), (x + 18, y + 38), (x - 18 - w, y + 38)]
+                 (x + 18, y - 20), (x - 18 - w, y - 20), (x + 18, y + 38), (x - 18 - w, y + 38),
+                 (x + 22, y + 34), (x + 22, y - 16), (x - 22 - w, y + 34), (x - 22 - w, y - 16)]
         spots = [s for s in spots if s[0] >= L + 4 and s[0] + w <= L + pw and s[1] - h > T]
-        left, base = next((s for s in spots if not hit((s[0], s[0] + w, s[1] - h + 5, s[1] + 5))), spots[0])
+
+        def overlap(s: tuple[float, float]) -> float:
+            a = (s[0], s[0] + w, s[1] - h + 5, s[1] + 5)
+            return sum(max(0, min(a[1], o[1]) - max(a[0], o[0])) * max(0, min(a[3], o[3]) - max(a[2], o[2])) for o in obstacles)
+
+        # First clear spot; when none is clear, the spot that covers the least.
+        left, base = next((s for s in spots if not hit((s[0], s[0] + w, s[1] - h + 5, s[1] + 5))), None) or min(spots, key=overlap)
         obstacles.append((left, left + w, base - h + 5, base + 5))
         out.append(f'<text x="{left:.1f}" y="{base:.1f}" font-size="23" font-weight="700" fill="{INK}" style="paint-order:stroke;stroke:{CARD};stroke-width:6px">{escape(text)}</text>')
     out.append("</svg>")

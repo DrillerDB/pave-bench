@@ -166,6 +166,46 @@
     "excluded": false
    },
    {
+    "system": "Gemini 4 Carbon, 0-1000 grid",
+    "provider": "Google",
+    "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Stops at 32,768 output tokens, answer and thinking together, so some answers were cut off. Cost at the introductory price $2/$10 per MTok, valid through 2026-11-30; from 2026-12-01 it is $4/$20, which doubles the cost shown (Google AI Studio pricing page, 2026-11-13). Run 2026-11-11.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.8158427128,
+    "passRate": 0.8181818181818182,
+    "attempts": 11,
+    "lots": 4,
+    "valid": 0.9090909090909091,
+    "appValid": 0.909091,
+    "medianAreaDelta": 0.036730357,
+    "p90AreaDelta": 0.04538461300305272,
+    "cutoutRecovery": 0.4586722271,
+    "p50": 189986.0,
+    "p95": 282145.0,
+    "cost": 0.17866,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Carbon, grid, 1 retry",
+    "provider": "Google",
+    "notes": "Grid prompt; re-asked once when the draft failed validation or was cut off (cost and time of both attempts counted). Cost at the introductory price $2/$10 per MTok, valid through 2026-11-30; from 2026-12-01 it is $4/$20, which doubles the cost shown (Google AI Studio pricing page, 2026-11-13). Run 2026-11-11.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.8981426835,
+    "passRate": 0.75,
+    "attempts": 12,
+    "lots": 4,
+    "valid": 1.0,
+    "appValid": 1.0,
+    "medianAreaDelta": 0.0218756267,
+    "p90AreaDelta": 0.05578819570419611,
+    "cutoutRecovery": 0.5424053787,
+    "p50": 285363.5,
+    "p95": 736105.0,
+    "cost": 0.271367,
+    "excluded": false
+   },
+   {
     "system": "Claude Fable 5.1",
     "provider": "Anthropic",
     "notes": "Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls.",
@@ -386,6 +426,46 @@
     "excluded": false
    },
    {
+    "system": "Gemini 4 Hydrogen, 0-1000 grid",
+    "provider": "Google",
+    "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.862314648,
+    "passRate": 0.3333333333333333,
+    "attempts": 12,
+    "lots": 4,
+    "valid": 1.0,
+    "appValid": 1.0,
+    "medianAreaDelta": 0.0622382347,
+    "p90AreaDelta": 0.11668573343967617,
+    "cutoutRecovery": 0.482153328,
+    "p50": 40867.0,
+    "p95": 54865.0,
+    "cost": 0.070379,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Hydrogen, grid, 1 retry",
+    "provider": "Google",
+    "notes": "Grid prompt; re-asked once when the draft failed validation (cost and time of both attempts counted). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.8553101902,
+    "passRate": 0.25,
+    "attempts": 12,
+    "lots": 4,
+    "valid": 1.0,
+    "appValid": 1.0,
+    "medianAreaDelta": 0.0498105881,
+    "p90AreaDelta": 0.10434036430428721,
+    "cutoutRecovery": 0.4902290721,
+    "p50": 43690.5,
+    "p95": 53985.0,
+    "cost": 0.077774,
+    "excluded": false
+   },
+   {
     "system": "Muse Wonder",
     "provider": "Meta",
     "notes": "Through the muse exec CLI (contributor mode off) with --output-schema; image resized to 1568 px. The CLI reports no tokens, so no cost (API list price $4/$20 per MTok).",
@@ -562,6 +642,63 @@
     "p50": 37733.0,
     "p95": 52638.0,
     "cost": 0.396458,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Carbon, 0-1000 grid",
+    "provider": "Google",
+    "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Stops at 32,768 output tokens, answer and thinking together, so some answers were cut off. Cost at the introductory price $2/$10 per MTok, valid through 2026-11-30; from 2026-12-01 it is $4/$20, which doubles the cost shown (Google AI Studio pricing page, 2026-11-13). Run 2026-11-11.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.836661809102,
+    "passRate": 0.6666666666666666,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.16333819089799997,
+    "medianErr": 0.09589041095900001,
+    "p90Err": 0.4112903225806452,
+    "appValid": 0.8,
+    "p50": 32830.0,
+    "p95": 55200.0,
+    "cost": 0.032317,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Carbon, grid, agentic",
+    "provider": "Google",
+    "notes": "Grid prompt in a function-calling loop of up to 8 turns with three tools: zoom (a crop of the image), check (the application validator, never the gold) and submit. Cost and time count every turn. Cost at the introductory price $2/$10 per MTok, valid through 2026-11-30; from 2026-12-01 it is $4/$20, which doubles the cost shown (Google AI Studio pricing page, 2026-11-13). Run 2026-11-11.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.872154029737,
+    "passRate": 0.4,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.12784597026300001,
+    "medianErr": 0.12328767123300001,
+    "p90Err": 0.2661290322580645,
+    "appValid": 1.0,
+    "p50": 152548.0,
+    "p95": 328860.0,
+    "cost": 0.191461,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Carbon, grid, 1 retry",
+    "provider": "Google",
+    "notes": "Grid prompt; re-asked once when the draft failed validation or was cut off (cost and time of both attempts counted). Cost at the introductory price $2/$10 per MTok, valid through 2026-11-30; from 2026-12-01 it is $4/$20, which doubles the cost shown (Google AI Studio pricing page, 2026-11-13). Run 2026-11-11.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.877471106107,
+    "passRate": 0.6,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.122528893893,
+    "medianErr": 0.09589041095900001,
+    "p90Err": 0.20535714285714285,
+    "appValid": 0.933333,
+    "p50": 35510.0,
+    "p95": 92165.0,
+    "cost": 0.040462,
     "excluded": false
    },
    {
@@ -774,6 +911,63 @@
     "excluded": false
    },
    {
+    "system": "Gemini 4 Hydrogen, 0-1000 grid",
+    "provider": "Google",
+    "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.892835975085,
+    "passRate": 0.5333333333333333,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.107164024915,
+    "medianErr": 0.076923076923,
+    "p90Err": 0.2054794520547945,
+    "appValid": 1.0,
+    "p50": 20958.0,
+    "p95": 37601.0,
+    "cost": 0.052251,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Hydrogen, grid, agentic",
+    "provider": "Google",
+    "notes": "Grid prompt in a function-calling loop of up to 8 turns with three tools: zoom (a crop of the image), check (the application validator, never the gold) and submit. Cost and time count every turn. Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.872230994418,
+    "passRate": 0.4666666666666667,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.127769005582,
+    "medianErr": 0.104838709677,
+    "p90Err": 0.30357142857142855,
+    "appValid": 1.0,
+    "p50": 45563.0,
+    "p95": 66151.0,
+    "cost": 0.140284,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Hydrogen, grid, 1 retry",
+    "provider": "Google",
+    "notes": "Grid prompt; re-asked once when the draft failed validation (cost and time of both attempts counted). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.887971836175,
+    "passRate": 0.4666666666666667,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.112028163825,
+    "medianErr": 0.104838709677,
+    "p90Err": 0.22321428571428573,
+    "appValid": 1.0,
+    "p50": 25215.0,
+    "p95": 32085.0,
+    "cost": 0.050408,
+    "excluded": false
+   },
+   {
     "system": "Muse Wonder",
     "provider": "Meta",
     "notes": "Through the muse exec CLI (contributor mode off) with --output-schema; image resized to 1568 px. The CLI reports no tokens, so no cost (API list price $4/$20 per MTok).",
@@ -844,6 +1038,21 @@
     "notes": "Same prompt and settings as GPT-6 Astra. Price $2/$10 per MTok from secondary sources."
    },
    {
+    "system": "Gemini 4 Hydrogen, 0-1000 grid",
+    "provider": "Google",
+    "accuracy": 0.7281057632505554,
+    "components": {
+     "area": 0.862314648,
+     "stall": 0.892835975085,
+     "stripe": 0.4291666666666667
+    },
+    "cost": 0.254716125,
+    "p50": 119509.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12."
+   },
+   {
     "system": "Gemini 4 Argon, 0-1000 grid",
     "provider": "Google",
     "accuracy": 0.7229609859584444,
@@ -887,6 +1096,21 @@
     "excluded": false,
     "frontierNote": "",
     "notes": "Image downscaled to 1568 px long edge (answer scaled back). Kept to show the cost of lower resolution; Claude often declined to count stalls it called too faint."
+   },
+   {
+    "system": "Gemini 4 Carbon, 0-1000 grid",
+    "provider": "Google",
+    "accuracy": 0.6022237295228889,
+    "components": {
+     "area": 0.8158427128,
+     "stall": 0.836661809102,
+     "stripe": 0.15416666666666667
+    },
+    "cost": 0.5046801666666667,
+    "p50": 565482.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Stops at 32,768 output tokens, answer and thinking together, so some answers were cut off. Cost at the introductory price $2/$10 per MTok, valid through 2026-11-30; from 2026-12-01 it is $4/$20, which doubles the cost shown (Google AI Studio pricing page, 2026-11-13). Run 2026-11-11."
    },
    {
     "system": "Muse Wonder",
@@ -1075,7 +1299,7 @@
    "task": "stripe_lines",
    "judge": "claude-opus-5-5",
    "reference": "GPT-6 Astra",
-   "method": "No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's.",
+   "method": "No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's. Rows added later (Gemini 4 Carbon 2026-11-11, Gemini 4 Hydrogen 2026-11-12): 30 more judgments by the same judge against the same GPT-6 Astra tries, $1.72; 0 refused; order agreement 100% over 15 pairs.",
    "calibration": {
     "referenceSelfWinRate": 0.6666666666666666,
     "orderAgreement": 0.9494949494949495,
@@ -1144,6 +1368,22 @@
      },
      "p50LatencyMs": 58273,
      "meanCostUsd": 0.11551249999999998,
+     "provider": "Google"
+    },
+    {
+     "system": "Gemini 4 Carbon, 0-1000 grid",
+     "note": "9 tries returned no stripes (scored as losses, usability 0).",
+     "lots": 2,
+     "comparisons": 24,
+     "winRateVsReference": 0,
+     "meanUsability": 1.5416666666666667,
+     "faults": {
+      "rowsMissedMean": 0,
+      "linesWithoutPaintManyRate": 0,
+      "hatchingOutlineOrMissingRate": 0
+     },
+     "p50LatencyMs": 342666,
+     "meanCostUsd": 0.2937031666666667,
      "provider": "Google"
     },
     {
@@ -1323,6 +1563,22 @@
      "provider": "OpenAI"
     },
     {
+     "system": "Gemini 4 Hydrogen, 0-1000 grid",
+     "note": "",
+     "lots": 6,
+     "comparisons": 24,
+     "winRateVsReference": 0,
+     "meanUsability": 4.291666666666667,
+     "faults": {
+      "rowsMissedMean": 1.7916666666666667,
+      "linesWithoutPaintManyRate": 0.125,
+      "hatchingOutlineOrMissingRate": 0
+     },
+     "p50LatencyMs": 57684,
+     "meanCostUsd": 0.132086125,
+     "provider": "Google"
+    },
+    {
      "system": "Muse Wonder",
      "note": "2 tries returned no stripes (scored as losses, usability 0).",
      "lots": 5,
@@ -1373,7 +1629,7 @@
   }
  ],
  "meta": {
-  "updated": "2026-10-13",
+  "updated": "2026-11-12",
   "setName": "Private test split v0",
   "setDescription": "4 hand-traced lot outlines, 5 hand-counted stall lots and 6 striping lots on Mapbox Satellite imagery (not redistributed). Each system tried each lot 2-3 times.",
   "cases": 9,
@@ -1386,7 +1642,7 @@
    2.3,
    11.3
   ],
-  "systems": 23,
+  "systems": 29,
   "providers": [
    "Anthropic",
    "Google",
