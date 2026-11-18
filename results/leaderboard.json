@@ -544,6 +544,46 @@
     "p95": 174491.0,
     "cost": null,
     "excluded": false
+   },
+   {
+    "system": "Gemini 4 Neon, 0-1000 grid",
+    "provider": "Google",
+    "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.8803011809,
+    "passRate": 0.5833333333333334,
+    "attempts": 12,
+    "lots": 4,
+    "valid": 1.0,
+    "appValid": 1.0,
+    "medianAreaDelta": 0.0351395279,
+    "p90AreaDelta": 0.17831239968509136,
+    "cutoutRecovery": 0.6232521314,
+    "p50": 85498.5,
+    "p95": 122158.0,
+    "cost": 0.189976,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Neon, grid, 1 retry",
+    "provider": "Google",
+    "notes": "Grid prompt; re-asked once when the draft failed validation (cost and time of both attempts counted). Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.8776068483,
+    "passRate": 0.5833333333333334,
+    "attempts": 12,
+    "lots": 4,
+    "valid": 1.0,
+    "appValid": 1.0,
+    "medianAreaDelta": 0.0407195395,
+    "p90AreaDelta": 0.17961090461781223,
+    "cutoutRecovery": 0.773518731,
+    "p50": 75583.5,
+    "p95": 113756.0,
+    "cost": 0.184803,
+    "excluded": false
    }
   ],
   "stall": [
@@ -1120,6 +1160,63 @@
     "p95": 145200.0,
     "cost": null,
     "excluded": false
+   },
+   {
+    "system": "Gemini 4 Neon, 0-1000 grid",
+    "provider": "Google",
+    "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.901779934224,
+    "passRate": 0.6,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.098220065776,
+    "medianErr": 0.076923076923,
+    "p90Err": 0.20535714285714285,
+    "appValid": 1.0,
+    "p50": 42385.0,
+    "p95": 71293.0,
+    "cost": 0.121511,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Neon, grid, agentic",
+    "provider": "Google",
+    "notes": "Grid prompt in a function-calling loop of up to 8 turns with three tools: zoom (a crop of the image), check (the application validator, never the gold) and submit. Cost and time count every turn. Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.841447785646,
+    "passRate": 0.4,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.15855221435400002,
+    "medianErr": 0.13698630137,
+    "p90Err": 0.33064516129032256,
+    "appValid": 1.0,
+    "p50": 101736.0,
+    "p95": 178691.0,
+    "cost": 0.368342,
+    "excluded": false
+   },
+   {
+    "system": "Gemini 4 Neon, grid, 1 retry",
+    "provider": "Google",
+    "notes": "Grid prompt; re-asked once when the draft failed validation (cost and time of both attempts counted). Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.89031810323,
+    "passRate": 0.4666666666666667,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.10968189677,
+    "medianErr": 0.13698630137,
+    "p90Err": 0.21428571428571427,
+    "appValid": 1.0,
+    "p50": 46111.0,
+    "p95": 59039.0,
+    "cost": 0.114783,
+    "excluded": false
    }
   ],
   "composite": [
@@ -1137,6 +1234,21 @@
     "excluded": false,
     "frontierNote": "",
     "notes": "Reference system for the judged task. Priority tier; reasoning effort medium (low for stall counts)."
+   },
+   {
+    "system": "Gemini 4 Neon, 0-1000 grid",
+    "provider": "Google",
+    "accuracy": 0.800971482819111,
+    "components": {
+     "area": 0.8803011809,
+     "stall": 0.901779934224,
+     "stripe": 0.6208333333333333
+    },
+    "cost": 0.657593,
+    "p50": 277454.5,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18."
    },
    {
     "system": "GPT-6.2 Sol, Ultrafast tier",
@@ -1445,7 +1557,7 @@
    "task": "stripe_lines",
    "judge": "claude-opus-5-5",
    "reference": "GPT-6 Astra",
-   "method": "No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's. Rows added later (Gemini 4 Carbon 2026-11-11, Gemini 4 Hydrogen 2026-11-12, GPT-6.2 Sol and GPT-6.2 Astra 2026-11-17): 126 more judgments by the same judge against the same GPT-6 Astra tries, $6.96; 0 refused; order agreement 79% over 63 pairs.",
+   "method": "No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's. Rows added later (Gemini 4 Carbon 2026-11-11, Gemini 4 Hydrogen 2026-11-12, GPT-6.2 Sol and GPT-6.2 Astra 2026-11-17, Gemini 4 Neon 2026-11-18): 150 more judgments by the same judge against the same GPT-6 Astra tries, $8.36; 0 refused; order agreement 75% over 75 pairs.",
    "calibration": {
     "referenceSelfWinRate": 0.6666666666666666,
     "orderAgreement": 0.9494949494949495,
@@ -1821,6 +1933,22 @@
      "provider": "Meta"
     },
     {
+     "system": "Gemini 4 Neon, 0-1000 grid",
+     "note": "",
+     "lots": 6,
+     "comparisons": 24,
+     "winRateVsReference": 0.22916666666666666,
+     "meanUsability": 6.208333333333333,
+     "faults": {
+      "rowsMissedMean": 0.75,
+      "linesWithoutPaintManyRate": 0,
+      "hatchingOutlineOrMissingRate": 0
+     },
+     "p50LatencyMs": 149571,
+     "meanCostUsd": 0.34610599999999997,
+     "provider": "Google"
+    },
+    {
      "system": "GPT-6 Astra",
      "lots": 6,
      "comparisons": 384,
@@ -1852,7 +1980,7 @@
    2.3,
    11.3
   ],
-  "systems": 33,
+  "systems": 36,
   "providers": [
    "Anthropic",
    "Google",
