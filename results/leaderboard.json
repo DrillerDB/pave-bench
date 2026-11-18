@@ -426,6 +426,46 @@
     "excluded": false
    },
    {
+    "system": "GPT-6.2 Astra, Ultrafast tier",
+    "provider": "OpenAI",
+    "notes": "All three jobs on the Ultrafast tier (service_tier ultrafast; requested and returned tier recorded per call); same prompt and reasoning effort as GPT-6 Astra. Cost at the list price $48/$240 per MTok ($2.40 cached input), six times the standard $8/$40. OpenAI shows a promotional Ultrafast price of $24/$120 through 2027-02-28, which halves the cost shown (OpenAI pricing page, 2026-11-17). Run 2026-11-17.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.8957346579,
+    "passRate": 0.5,
+    "attempts": 12,
+    "lots": 4,
+    "valid": 1.0,
+    "appValid": 1.0,
+    "medianAreaDelta": 0.0163255698,
+    "p90AreaDelta": 0.057051774472470305,
+    "cutoutRecovery": 0.8859379633,
+    "p50": 18255.5,
+    "p95": 22552.0,
+    "cost": 0.6369,
+    "excluded": false
+   },
+   {
+    "system": "GPT-6.2 Sol, Ultrafast tier",
+    "provider": "OpenAI",
+    "notes": "All three jobs on the Ultrafast tier (service_tier ultrafast; requested and returned tier recorded per call); same prompt and reasoning effort as GPT-6 Astra. Cost at the list price $12/$60 per MTok ($0.60 cached input), six times the standard $2/$10. OpenAI shows a promotional Ultrafast price of $6/$30 through 2027-02-28, which halves the cost shown (OpenAI pricing page, 2026-11-17). Run 2026-11-17.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.8994323235,
+    "passRate": 0.75,
+    "attempts": 12,
+    "lots": 4,
+    "valid": 1.0,
+    "appValid": 1.0,
+    "medianAreaDelta": 0.0364845061,
+    "p90AreaDelta": 0.04727515320805972,
+    "cutoutRecovery": 0.8897385607,
+    "p50": 27517.0,
+    "p95": 33325.0,
+    "cost": 0.27931,
+    "excluded": false
+   },
+   {
     "system": "Gemini 4 Hydrogen, 0-1000 grid",
     "provider": "Google",
     "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.",
@@ -911,6 +951,82 @@
     "excluded": false
    },
    {
+    "system": "GPT-6.2 Astra, Fast tier",
+    "provider": "OpenAI",
+    "notes": "Stall counts and striping on the Fast tier (service_tier priority; requested and returned tier recorded per call; outlines were not run at this tier); same prompt and reasoning effort as GPT-6 Astra. Price $16/$80 per MTok ($0.80 cached input), twice the standard $8/$40 (OpenAI pricing page, 2026-11-17). Run 2026-11-17.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.788620423241,
+    "passRate": 0.4,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.21137957675900002,
+    "medianErr": 0.142857142857,
+    "p90Err": 0.6774193548387096,
+    "appValid": 1.0,
+    "p50": 16786.0,
+    "p95": 27085.0,
+    "cost": 0.199747,
+    "excluded": false
+   },
+   {
+    "system": "GPT-6.2 Astra, Ultrafast tier",
+    "provider": "OpenAI",
+    "notes": "All three jobs on the Ultrafast tier (service_tier ultrafast; requested and returned tier recorded per call); same prompt and reasoning effort as GPT-6 Astra. Cost at the list price $48/$240 per MTok ($2.40 cached input), six times the standard $8/$40. OpenAI shows a promotional Ultrafast price of $24/$120 through 2027-02-28, which halves the cost shown (OpenAI pricing page, 2026-11-17). Run 2026-11-17.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.7313836709420001,
+    "passRate": 0.26666666666666666,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.268616329058,
+    "medianErr": 0.1875,
+    "p90Err": 0.8185483870967742,
+    "appValid": 1.0,
+    "p50": 7996.0,
+    "p95": 13520.0,
+    "cost": 0.520597,
+    "excluded": false
+   },
+   {
+    "system": "GPT-6.2 Sol, Fast tier",
+    "provider": "OpenAI",
+    "notes": "Stall counts and striping on the Fast tier (service_tier priority; requested and returned tier recorded per call; outlines were not run at this tier); same prompt and reasoning effort as GPT-6 Astra. Price $4/$20 per MTok ($0.20 cached input), twice the standard $2/$10 (OpenAI pricing page, 2026-11-17). Run 2026-11-17.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.71552517079,
+    "passRate": 0.2,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.28447482921,
+    "medianErr": 0.19178082191800003,
+    "p90Err": 0.7943548387096775,
+    "appValid": 1.0,
+    "p50": 16163.0,
+    "p95": 28859.0,
+    "cost": 0.048975,
+    "excluded": false
+   },
+   {
+    "system": "GPT-6.2 Sol, Ultrafast tier",
+    "provider": "OpenAI",
+    "notes": "All three jobs on the Ultrafast tier (service_tier ultrafast; requested and returned tier recorded per call); same prompt and reasoning effort as GPT-6 Astra. Cost at the list price $12/$60 per MTok ($0.60 cached input), six times the standard $2/$10. OpenAI shows a promotional Ultrafast price of $6/$30 through 2027-02-28, which halves the cost shown (OpenAI pricing page, 2026-11-17). Run 2026-11-17.",
+    "frontierExclude": [],
+    "frontierNote": "",
+    "accuracy": 0.688570124558,
+    "passRate": 0.2,
+    "attempts": 15,
+    "lots": 5,
+    "meanErr": 0.311429875442,
+    "medianErr": 0.179487179487,
+    "p90Err": 0.9475806451612904,
+    "appValid": 1.0,
+    "p50": 9262.0,
+    "p95": 12878.0,
+    "cost": 0.140049,
+    "excluded": false
+   },
+   {
     "system": "Gemini 4 Hydrogen, 0-1000 grid",
     "provider": "Google",
     "notes": "Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.",
@@ -1021,6 +1137,36 @@
     "excluded": false,
     "frontierNote": "",
     "notes": "Reference system for the judged task. Priority tier; reasoning effort medium (low for stall counts)."
+   },
+   {
+    "system": "GPT-6.2 Sol, Ultrafast tier",
+    "provider": "OpenAI",
+    "accuracy": 0.7585008160193333,
+    "components": {
+     "area": 0.8994323235,
+     "stall": 0.688570124558,
+     "stripe": 0.6875
+    },
+    "cost": 1.0442292,
+    "p50": 70616.0,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "All three jobs on the Ultrafast tier (service_tier ultrafast; requested and returned tier recorded per call); same prompt and reasoning effort as GPT-6 Astra. Cost at the list price $12/$60 per MTok ($0.60 cached input), six times the standard $2/$10. OpenAI shows a promotional Ultrafast price of $6/$30 through 2027-02-28, which halves the cost shown (OpenAI pricing page, 2026-11-17). Run 2026-11-17."
+   },
+   {
+    "system": "GPT-6.2 Astra, Ultrafast tier",
+    "provider": "OpenAI",
+    "accuracy": 0.7520949985028889,
+    "components": {
+     "area": 0.8957346579,
+     "stall": 0.7313836709420001,
+     "stripe": 0.6291666666666667
+    },
+    "cost": 2.9312249999999995,
+    "p50": 54984.5,
+    "excluded": false,
+    "frontierNote": "",
+    "notes": "All three jobs on the Ultrafast tier (service_tier ultrafast; requested and returned tier recorded per call); same prompt and reasoning effort as GPT-6 Astra. Cost at the list price $48/$240 per MTok ($2.40 cached input), six times the standard $8/$40. OpenAI shows a promotional Ultrafast price of $24/$120 through 2027-02-28, which halves the cost shown (OpenAI pricing page, 2026-11-17). Run 2026-11-17."
    },
    {
     "system": "GPT-6.1 Sol",
@@ -1299,7 +1445,7 @@
    "task": "stripe_lines",
    "judge": "claude-opus-5-5",
    "reference": "GPT-6 Astra",
-   "method": "No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's. Rows added later (Gemini 4 Carbon 2026-11-11, Gemini 4 Hydrogen 2026-11-12): 30 more judgments by the same judge against the same GPT-6 Astra tries, $1.72; 0 refused; order agreement 100% over 15 pairs.",
+   "method": "No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's. Rows added later (Gemini 4 Carbon 2026-11-11, Gemini 4 Hydrogen 2026-11-12, GPT-6.2 Sol and GPT-6.2 Astra 2026-11-17): 126 more judgments by the same judge against the same GPT-6 Astra tries, $6.96; 0 refused; order agreement 79% over 63 pairs.",
    "calibration": {
     "referenceSelfWinRate": 0.6666666666666666,
     "orderAgreement": 0.9494949494949495,
@@ -1563,6 +1709,70 @@
      "provider": "OpenAI"
     },
     {
+     "system": "GPT-6.2 Astra, Fast tier",
+     "note": "",
+     "lots": 6,
+     "comparisons": 24,
+     "winRateVsReference": 0.5625,
+     "meanUsability": 6.708333333333333,
+     "faults": {
+      "rowsMissedMean": 0.5833333333333334,
+      "linesWithoutPaintManyRate": 0,
+      "hatchingOutlineOrMissingRate": 0
+     },
+     "p50LatencyMs": 48698,
+     "meanCostUsd": 0.6016202666666667,
+     "provider": "OpenAI"
+    },
+    {
+     "system": "GPT-6.2 Astra, Ultrafast tier",
+     "note": "",
+     "lots": 6,
+     "comparisons": 24,
+     "winRateVsReference": 0.25,
+     "meanUsability": 6.291666666666667,
+     "faults": {
+      "rowsMissedMean": 0.75,
+      "linesWithoutPaintManyRate": 0,
+      "hatchingOutlineOrMissingRate": 0
+     },
+     "p50LatencyMs": 28733,
+     "meanCostUsd": 1.7737279999999995,
+     "provider": "OpenAI"
+    },
+    {
+     "system": "GPT-6.2 Sol, Fast tier",
+     "note": "",
+     "lots": 6,
+     "comparisons": 24,
+     "winRateVsReference": 0.6041666666666666,
+     "meanUsability": 6.916666666666667,
+     "faults": {
+      "rowsMissedMean": 0.041666666666666664,
+      "linesWithoutPaintManyRate": 0,
+      "hatchingOutlineOrMissingRate": 0
+     },
+     "p50LatencyMs": 80011,
+     "meanCostUsd": 0.21197339999999998,
+     "provider": "OpenAI"
+    },
+    {
+     "system": "GPT-6.2 Sol, Ultrafast tier",
+     "note": "",
+     "lots": 6,
+     "comparisons": 24,
+     "winRateVsReference": 0.5208333333333334,
+     "meanUsability": 6.875,
+     "faults": {
+      "rowsMissedMean": 0,
+      "linesWithoutPaintManyRate": 0,
+      "hatchingOutlineOrMissingRate": 0
+     },
+     "p50LatencyMs": 33837,
+     "meanCostUsd": 0.6248702,
+     "provider": "OpenAI"
+    },
+    {
      "system": "Gemini 4 Hydrogen, 0-1000 grid",
      "note": "",
      "lots": 6,
@@ -1629,7 +1839,7 @@
   }
  ],
  "meta": {
-  "updated": "2026-11-12",
+  "updated": "2026-11-18",
   "setName": "Private test split v0",
   "setDescription": "4 hand-traced lot outlines, 5 hand-counted stall lots and 6 striping lots on Mapbox Satellite imagery (not redistributed). Each system tried each lot 2-3 times.",
   "cases": 9,
@@ -1642,7 +1852,7 @@
    2.3,
    11.3
   ],
-  "systems": 29,
+  "systems": 33,
   "providers": [
    "Anthropic",
    "Google",

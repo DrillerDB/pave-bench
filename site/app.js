@@ -159,6 +159,7 @@
   // ---- Score vs. cost chart --------------------------------------------------
   let axis = "cost";
   const svg = document.getElementById("chart");
+  const measure = document.createElement("canvas").getContext("2d");
   const wrap = document.getElementById("chart-wrap");
   function renderChart() {
     const key = axis;
@@ -202,22 +203,78 @@
       obstacles.push([ax, bx, ay - 3, ay + 3], [bx - 3, bx + 3, Math.min(ay, by), Math.max(ay, by)]);
     }
     rows.forEach((r) => { const x = sx(r[key]), y = sy(Math.max(yMin, r.accuracy)); obstacles.push([x - 10, x + 10, y - 10, y + 10]); });
-    const hits = (b) => obstacles.filter((o) => b[0] < o[1] && b[1] > o[0] && b[2] < o[3] && b[3] > o[2]).length;
+    const over = (b) => (o) => b[0] < o[1] && b[1] > o[0] && b[2] < o[3] && b[3] > o[2];
+    const dots = rows.map((r) => [sx(r[key]), sy(Math.max(yMin, r.accuracy))]);
     const fs = narrow ? 11 : 13;
-    [...rows].sort((a, b) => b.accuracy - a.accuracy).forEach((r) => {
-      const x = sx(r[key]), y = sy(Math.max(yMin, r.accuracy));
-      const text = narrow ? modelOf(r.system).replace(/^Claude |^Gemini 4 /, "") : modelOf(r.system);
-      const w = text.length * fs * 0.56, h = fs + 2;
-      const spots = [[x + 13, y + 4], [x - 13 - w, y + 4], [x - w / 2, y - 13], [x - w / 2, y + 20],
-        [x + 10, y - 11], [x - 10 - w, y - 11], [x + 10, y + 18], [x - 10 - w, y + 18], [x - 4, y - 14], [x - 4, y + 22]]
-        .filter(([l, b]) => l >= L + 2 && l + w <= L + pw && b - h > T);
-      if (!spots.length) return;
-      const cost = (s) => hits([s[0], s[0] + w, s[1] - h + 3, s[1] + 3]);
-      const [l, b] = spots.reduce((best, s) => (cost(s) < cost(best) ? s : best));
-      obstacles.push([l, l + w, b - h + 3, b + 3]);
-      g += `<text class="lab" x="${l.toFixed(1)}" y="${b.toFixed(1)}" style="font-size:${fs}px">${esc(text)}</text>`;
-    });
-    svg.innerHTML = g;
+    // Label widths are measured in the font the chart is drawn in (the old 0.56 x size estimate ran about 10% wide).
+    measure.font = `600 ${fs}px ${getComputedStyle(svg).fontFamily}`;
+    // One placement pass over the points in the given order; returns the label markup and the points it named.
+    const place = (order) => {
+      const labels = [], named = new Set();
+      const hits = (b) => obstacles.filter(over(b)).length + labels.filter(over(b)).length;
+      let out = "";
+      order.forEach((r) => {
+        const x = sx(r[key]), y = sy(Math.max(yMin, r.accuracy));
+        const text = narrow ? modelOf(r.system).replace(/^Claude |^Gemini 4 /, "") : modelOf(r.system);
+        const w = measure.measureText(text).width || text.length * fs * 0.56, h = fs + 2;
+        const near = [[x + 13, y + 4], [x - 13 - w, y + 4], [x - w / 2, y - 13], [x - w / 2, y + 20],
+          [x + 10, y - 11], [x - 10 - w, y - 11], [x + 10, y + 18], [x - 10 - w, y + 18], [x - 4, y - 14], [x - 4, y + 22]];
+        const inside = ([l, b]) => l >= L + 2 && l + w <= L + pw && b - h > T;
+        const cost = (s) => hits([s[0], s[0] + w, s[1] - h + 3, s[1] + 3]);
+        const pick = (ss) => ss.reduce((best, s) => (cost(s) < cost(best) ? s : best));
+        // Penalty for a spot that would hide or misname something: on another label (with a 3 px margin), over
+        // another point, nearer (or within 2 px of as near) another point than its own, or, off the frontier, more than 14 px
+        // from its own point. Touching the line or a point's margin counts 1, as in cost().
+        const front = on.has(r.system);
+        // Distance from a point to the label's drawn box (text runs from about 0.85 x size above the baseline to 0.37 below).
+        const gap = ([l, b], [px, py]) => Math.hypot(Math.max(l - px, 0, px - l - w), Math.max(b - 0.85 * fs - py, 0, py - b - 0.37 * fs));
+        const onLabel = ([l, b]) => labels.filter(over([l - 3, l + w + 3, b - h + 1, b + 5])).length;
+        const wcost = ([l, b]) => obstacles.filter(over([l, l + w, b - h + 3, b + 3])).length +
+          10 * onLabel([l, b]) +
+          10 * dots.filter((d) => (d[0] !== x || d[1] !== y) && (gap([l, b], d) < gap([l, b], [x, y]) + 2 || gap([l, b], d) < 7)).length +
+          (!front && gap([l, b], [x, y]) > 14 ? 10 : 0);
+        let spots = near.filter(inside);
+        let best = spots.length ? pick(spots) : null;
+        // The nearby spot is kept when it is clear. Otherwise (or when no nearby spot is inside the plot, e.g. a
+        // point at the right edge) try spots further out and nearby spots slid back inside the plot; take the
+        // clearest, then the closest; and leave the point unlabeled when even that one would hide or misname
+        // something (its tooltip and the all-setups table still name it). A frontier point also tries every spot on
+        // a 4 px grid around it, up to about 30 px away, since naming it matters more than keeping the label close.
+        if (!best || cost(best) > 0 || wcost(best) >= 10) {
+          const far = [[x - w / 2, y - 26], [x - w / 2, y + 33], [x + 13, y + 17], [x - 13 - w, y + 17],
+            [x + 13, y - 9], [x - 13 - w, y - 9], [x - w - 4, y - 24], [x + 4, y - 24], [x - w - 4, y + 31], [x + 4, y + 31]];
+          const slide = ([l, b]) => [Math.min(Math.max(l, L + 2), L + pw - w), b];
+          const dist = ([l, b]) => Math.hypot(l + w / 2 - x, b - h / 2 - y);
+          const grid = [];
+          if (front) for (let dx = -w - 16; dx <= 16; dx += 4) for (let dy = -30; dy <= 36; dy += 4) grid.push([x + dx, y + dy]);
+          spots = [...near, ...far, ...grid].map(slide).filter((s) => inside(s) && s[1] < T + ph);
+          if (best) spots.push(best);
+          if (!spots.length) return;
+          best = spots.reduce((a, s) => (wcost(s) < wcost(a) || (wcost(s) === wcost(a) && dist(s) < dist(a)) ? s : a));
+          if (wcost(best) >= 10) return;
+        }
+        const [l, b] = best;
+        labels.push([l, l + w, b - h + 3, b + 3]);
+        named.add(r.system);
+        out += `<text class="lab" data-s="${esc(r.system)}" x="${l.toFixed(1)}" y="${b.toFixed(1)}" style="font-size:${fs}px">${esc(text)}</text>`;
+      });
+      return { out, named };
+    };
+    // Frontier points are labeled first (they are the ones the chart is about), then the rest; by score within each.
+    // If a frontier point is left unlabeled, try again with it placed first, and keep the pass that names the most
+    // frontier points, then the most points (at most 3 retries).
+    let order = [...rows].sort((a, b) => Number(on.has(b.system)) - Number(on.has(a.system)) || b.accuracy - a.accuracy);
+    let res = place(order);
+    const score = (x) => [...x.named].filter((s) => on.has(s)).length * 1000 + x.named.size;
+    for (let i = 0; i < 3; i++) {
+      const miss = order.filter((r) => on.has(r.system) && !res.named.has(r.system));
+      if (!miss.length) break;
+      const next = [...miss, ...order.filter((r) => !miss.includes(r))];
+      const alt = place(next);
+      if (score(alt) <= score(res)) break;
+      order = next; res = alt;
+    }
+    svg.innerHTML = g + res.out;
     bindTips(svg, ".pt", (s) => rows.find((r) => r.system === s));
   }
   document.querySelectorAll("#seg-axis button").forEach((b) => b.addEventListener("click", () => {
@@ -226,6 +283,8 @@
     renderChart();
   }));
   let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(renderChart, 120); });
+  // The web font can arrive after the first draw; draw again so label widths match the text on screen.
+  if (document.fonts) document.fonts.ready.then(renderChart);
 
   // ---- All-setups table --------------------------------------------------------
   let sortCol = 0, sortDir = -1;

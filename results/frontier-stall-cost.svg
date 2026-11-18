@@ -1,24 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" font-family="Helvetica, Arial, sans-serif">
 <rect width="820" height="440" fill="#ffffff"/>
 <text x="70" y="26" font-size="16" font-weight="700" fill="#1b1f22">Stall counting: accuracy vs cost</text>
-<line x1="108.6" y1="46" x2="108.6" y2="384" stroke="#e3e6e8"/>
-<text x="108.6" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.001</text>
-<line x1="153.9" y1="46" x2="153.9" y2="384" stroke="#e3e6e8"/>
-<text x="153.9" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.002</text>
-<line x1="213.7" y1="46" x2="213.7" y2="384" stroke="#e3e6e8"/>
-<text x="213.7" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.005</text>
-<line x1="259.0" y1="46" x2="259.0" y2="384" stroke="#e3e6e8"/>
-<text x="259.0" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.01</text>
-<line x1="304.2" y1="46" x2="304.2" y2="384" stroke="#e3e6e8"/>
-<text x="304.2" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.02</text>
-<line x1="364.1" y1="46" x2="364.1" y2="384" stroke="#e3e6e8"/>
-<text x="364.1" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.05</text>
-<line x1="409.4" y1="46" x2="409.4" y2="384" stroke="#e3e6e8"/>
-<text x="409.4" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.1</text>
-<line x1="454.6" y1="46" x2="454.6" y2="384" stroke="#e3e6e8"/>
-<text x="454.6" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.2</text>
-<line x1="514.5" y1="46" x2="514.5" y2="384" stroke="#e3e6e8"/>
-<text x="514.5" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.5</text>
+<line x1="107.2" y1="46" x2="107.2" y2="384" stroke="#e3e6e8"/>
+<text x="107.2" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.001</text>
+<line x1="150.7" y1="46" x2="150.7" y2="384" stroke="#e3e6e8"/>
+<text x="150.7" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.002</text>
+<line x1="208.4" y1="46" x2="208.4" y2="384" stroke="#e3e6e8"/>
+<text x="208.4" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.005</text>
+<line x1="251.9" y1="46" x2="251.9" y2="384" stroke="#e3e6e8"/>
+<text x="251.9" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.01</text>
+<line x1="295.5" y1="46" x2="295.5" y2="384" stroke="#e3e6e8"/>
+<text x="295.5" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.02</text>
+<line x1="353.1" y1="46" x2="353.1" y2="384" stroke="#e3e6e8"/>
+<text x="353.1" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.05</text>
+<line x1="396.7" y1="46" x2="396.7" y2="384" stroke="#e3e6e8"/>
+<text x="396.7" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.1</text>
+<line x1="440.3" y1="46" x2="440.3" y2="384" stroke="#e3e6e8"/>
+<text x="440.3" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.2</text>
+<line x1="497.9" y1="46" x2="497.9" y2="384" stroke="#e3e6e8"/>
+<text x="497.9" y="402" font-size="11" text-anchor="middle" fill="#5a6166">$0.5</text>
 <line x1="70" y1="384.0" x2="530" y2="384.0" stroke="#e3e6e8"/>
 <text x="62" y="388.0" font-size="11" text-anchor="end" fill="#5a6166">0.0</text>
 <line x1="70" y1="350.2" x2="530" y2="350.2" stroke="#e3e6e8"/>
@@ -44,51 +44,59 @@
 <rect x="70" y="46" width="460" height="338" fill="none" stroke="#9aa2a7"/>
 <text x="300.0" y="426" font-size="12" text-anchor="middle" fill="#1b1f22">Mean cost per lot (log scale; left is better)</text>
 <text transform="translate(18 215.0) rotate(-90)" font-size="12" text-anchor="middle" fill="#1b1f22">Count accuracy (up is better)</text>
-<path d="M100.7,340.2 L290.7,340.2 L290.7,322.6 L335.6,322.6 L335.6,101.2 L350.3,101.2 L350.3,87.4 L354.6,87.4 L354.6,72.7 L367.0,72.7 L367.0,71.1" fill="none" stroke="#d08a00" stroke-width="2" stroke-dasharray="5 4"/>
-<circle cx="367.0" cy="71.1" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
-<text x="375.0" y="65.1" font-size="10.5" font-weight="700" fill="#d08a00">1</text>
-<circle cx="354.6" cy="72.7" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
-<text x="362.6" y="66.7" font-size="10.5" font-weight="700" fill="#d08a00">2</text>
-<circle cx="367.0" cy="82.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="375.0" y="76.2" font-size="10.5" font-weight="700" fill="#6b7c8f">3</text>
-<circle cx="385.3" cy="83.0" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="393.3" y="77.0" font-size="10.5" font-weight="700" fill="#6b7c8f">4</text>
-<circle cx="364.6" cy="83.9" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="372.6" y="77.9" font-size="10.5" font-weight="700" fill="#6b7c8f">5</text>
-<circle cx="442.2" cy="86.7" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="450.2" y="80.7" font-size="10.5" font-weight="700" fill="#6b7c8f">6</text>
-<circle cx="499.3" cy="87.3" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="507.3" y="81.3" font-size="10.5" font-weight="700" fill="#6b7c8f">7</text>
-<circle cx="350.3" cy="87.4" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
-<text x="358.3" y="81.4" font-size="10.5" font-weight="700" fill="#d08a00">8</text>
-<circle cx="431.5" cy="89.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="439.5" y="83.2" font-size="10.5" font-weight="700" fill="#6b7c8f">9</text>
-<circle cx="451.8" cy="89.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="459.8" y="83.2" font-size="10.5" font-weight="700" fill="#6b7c8f">10</text>
-<circle cx="493.7" cy="94.1" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="501.7" y="88.1" font-size="10.5" font-weight="700" fill="#6b7c8f">11</text>
-<circle cx="366.9" cy="97.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="374.9" y="91.8" font-size="10.5" font-weight="700" fill="#6b7c8f">12</text>
-<circle cx="335.6" cy="101.2" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
-<text x="343.6" y="95.2" font-size="10.5" font-weight="700" fill="#d08a00">13</text>
-<circle cx="490.6" cy="114.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="498.6" y="108.2" font-size="10.5" font-weight="700" fill="#6b7c8f">14</text>
-<circle cx="355.2" cy="187.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="363.2" y="181.8" font-size="10.5" font-weight="700" fill="#6b7c8f">15</text>
-<circle cx="394.0" cy="241.7" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="402.0" y="235.7" font-size="10.5" font-weight="700" fill="#6b7c8f">16</text>
-<circle cx="358.7" cy="249.5" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="366.7" y="243.5" font-size="10.5" font-weight="700" fill="#6b7c8f">17</text>
-<circle cx="290.7" cy="322.6" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
-<text x="298.7" y="316.6" font-size="10.5" font-weight="700" fill="#d08a00">18</text>
-<circle cx="303.4" cy="329.6" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="311.4" y="323.6" font-size="10.5" font-weight="700" fill="#6b7c8f">19</text>
-<circle cx="100.7" cy="340.2" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
-<text x="108.7" y="334.2" font-size="10.5" font-weight="700" fill="#d08a00">20</text>
-<circle cx="108.5" cy="355.1" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="116.5" y="349.1" font-size="10.5" font-weight="700" fill="#6b7c8f">21</text>
-<circle cx="106.4" cy="361.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
-<text x="114.4" y="355.8" font-size="10.5" font-weight="700" fill="#6b7c8f">22</text>
+<path d="M99.6,340.2 L282.5,340.2 L282.5,322.6 L325.7,322.6 L325.7,101.2 L339.8,101.2 L339.8,87.4 L344.0,87.4 L344.0,72.7 L355.9,72.7 L355.9,71.1" fill="none" stroke="#d08a00" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="355.9" cy="71.1" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="363.9" y="65.1" font-size="10.5" font-weight="700" fill="#d08a00">1</text>
+<circle cx="344.0" cy="72.7" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="352.0" y="66.7" font-size="10.5" font-weight="700" fill="#d08a00">2</text>
+<circle cx="355.9" cy="82.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="363.9" y="76.2" font-size="10.5" font-weight="700" fill="#6b7c8f">3</text>
+<circle cx="373.6" cy="83.0" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="381.6" y="77.0" font-size="10.5" font-weight="700" fill="#6b7c8f">4</text>
+<circle cx="353.6" cy="83.9" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="361.6" y="77.9" font-size="10.5" font-weight="700" fill="#6b7c8f">5</text>
+<circle cx="428.3" cy="86.7" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="436.3" y="80.7" font-size="10.5" font-weight="700" fill="#6b7c8f">6</text>
+<circle cx="483.3" cy="87.3" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="491.3" y="81.3" font-size="10.5" font-weight="700" fill="#6b7c8f">7</text>
+<circle cx="339.8" cy="87.4" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="347.8" y="81.4" font-size="10.5" font-weight="700" fill="#d08a00">8</text>
+<circle cx="418.0" cy="89.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="426.0" y="83.2" font-size="10.5" font-weight="700" fill="#6b7c8f">9</text>
+<circle cx="437.6" cy="89.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="445.6" y="83.2" font-size="10.5" font-weight="700" fill="#6b7c8f">10</text>
+<circle cx="477.9" cy="94.1" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="485.9" y="88.1" font-size="10.5" font-weight="700" fill="#6b7c8f">11</text>
+<circle cx="355.9" cy="97.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="363.9" y="91.8" font-size="10.5" font-weight="700" fill="#6b7c8f">12</text>
+<circle cx="325.7" cy="101.2" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="333.7" y="95.2" font-size="10.5" font-weight="700" fill="#d08a00">13</text>
+<circle cx="474.9" cy="114.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="482.9" y="108.2" font-size="10.5" font-weight="700" fill="#6b7c8f">14</text>
+<circle cx="440.2" cy="117.4" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="448.2" y="111.4" font-size="10.5" font-weight="700" fill="#6b7c8f">15</text>
+<circle cx="500.4" cy="136.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="508.4" y="130.8" font-size="10.5" font-weight="700" fill="#6b7c8f">16</text>
+<circle cx="351.8" cy="142.2" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="359.8" y="136.2" font-size="10.5" font-weight="700" fill="#6b7c8f">17</text>
+<circle cx="417.9" cy="151.3" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="425.9" y="145.3" font-size="10.5" font-weight="700" fill="#6b7c8f">18</text>
+<circle cx="344.6" cy="187.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="352.6" y="181.8" font-size="10.5" font-weight="700" fill="#6b7c8f">19</text>
+<circle cx="382.0" cy="241.7" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="390.0" y="235.7" font-size="10.5" font-weight="700" fill="#6b7c8f">20</text>
+<circle cx="347.9" cy="249.5" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="355.9" y="243.5" font-size="10.5" font-weight="700" fill="#6b7c8f">21</text>
+<circle cx="282.5" cy="322.6" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="290.5" y="316.6" font-size="10.5" font-weight="700" fill="#d08a00">22</text>
+<circle cx="294.7" cy="329.6" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="302.7" y="323.6" font-size="10.5" font-weight="700" fill="#6b7c8f">23</text>
+<circle cx="99.6" cy="340.2" r="6" fill="#d08a00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="107.6" y="334.2" font-size="10.5" font-weight="700" fill="#d08a00">24</text>
+<circle cx="107.0" cy="355.1" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="115.0" y="349.1" font-size="10.5" font-weight="700" fill="#6b7c8f">25</text>
+<circle cx="105.1" cy="361.8" r="4.5" fill="#6b7c8f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="113.1" y="355.8" font-size="10.5" font-weight="700" fill="#6b7c8f">26</text>
 <text x="548" y="50" font-size="11" font-weight="700" fill="#1b1f22">Systems (best first)</text>
 <text x="548" y="68" font-size="10.5" fill="#a86f00" font-weight="700">1. Gemini 4 Argon, grid, 1 retry</text>
 <text x="548" y="83" font-size="10.5" fill="#a86f00" font-weight="700">2. Gemini 4 Argon, 0-1000 grid</text>
@@ -104,13 +112,17 @@
 <text x="548" y="233" font-size="10.5" fill="#3d464c" font-weight="400">12. Gemini 4 Argon, grid, ultra image</text>
 <text x="548" y="248" font-size="10.5" fill="#a86f00" font-weight="700">13. Gemini 4 Carbon, 0-1000 grid</text>
 <text x="548" y="263" font-size="10.5" fill="#3d464c" font-weight="400">14. Claude Fable 5.1, image at 1568 px</text>
-<text x="548" y="278" font-size="10.5" fill="#3d464c" font-weight="400">15. GPT-6 Sol</text>
-<text x="548" y="293" font-size="10.5" fill="#3d464c" font-weight="400">16. Claude Opus 5.5</text>
-<text x="548" y="308" font-size="10.5" fill="#3d464c" font-weight="400">17. Claude Opus 5.5, image at 1568 px</text>
-<text x="548" y="323" font-size="10.5" fill="#a86f00" font-weight="700">18. Claude Sonnet 5.5, image at 1568 px</text>
-<text x="548" y="338" font-size="10.5" fill="#3d464c" font-weight="400">19. Claude Sonnet 5.5</text>
-<text x="548" y="353" font-size="10.5" fill="#a86f00" font-weight="700">20. Claude Haiku 5.5, image at 1568 px</text>
-<text x="548" y="368" font-size="10.5" fill="#3d464c" font-weight="400">21. Claude Haiku 5.5</text>
-<text x="548" y="383" font-size="10.5" fill="#3d464c" font-weight="400">22. GPT-6 Luna</text>
-<text x="548" y="406" font-size="10" fill="#5a6166">Gold = on the frontier</text>
+<text x="548" y="278" font-size="10.5" fill="#3d464c" font-weight="400">15. GPT-6.2 Astra, Fast tier</text>
+<text x="548" y="293" font-size="10.5" fill="#3d464c" font-weight="400">16. GPT-6.2 Astra, Ultrafast tier</text>
+<text x="548" y="308" font-size="10.5" fill="#3d464c" font-weight="400">17. GPT-6.2 Sol, Fast tier</text>
+<text x="548" y="323" font-size="10.5" fill="#3d464c" font-weight="400">18. GPT-6.2 Sol, Ultrafast tier</text>
+<text x="548" y="338" font-size="10.5" fill="#3d464c" font-weight="400">19. GPT-6 Sol</text>
+<text x="548" y="353" font-size="10.5" fill="#3d464c" font-weight="400">20. Claude Opus 5.5</text>
+<text x="548" y="368" font-size="10.5" fill="#3d464c" font-weight="400">21. Claude Opus 5.5, image at 1568 px</text>
+<text x="548" y="383" font-size="10.5" fill="#a86f00" font-weight="700">22. Claude Sonnet 5.5, image at 1568 px</text>
+<text x="548" y="398" font-size="10.5" fill="#3d464c" font-weight="400">23. Claude Sonnet 5.5</text>
+<text x="548" y="413" font-size="10.5" fill="#a86f00" font-weight="700">24. Claude Haiku 5.5, image at 1568 px</text>
+<text x="548" y="428" font-size="10.5" fill="#3d464c" font-weight="400">25. Claude Haiku 5.5</text>
+<text x="548" y="443" font-size="10.5" fill="#3d464c" font-weight="400">26. GPT-6 Luna</text>
+<text x="548" y="466" font-size="10" fill="#5a6166">Gold = on the frontier</text>
 </svg>
