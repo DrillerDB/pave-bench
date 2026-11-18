@@ -11,30 +11,31 @@ Mean of the three job scores on 0-1 (outline mean IoU, stall count accuracy, jud
 | # | System | Composite | Outline IoU | Stall accuracy | Stripe usability | Time / lot | Cost / lot |
 |---|---|---|---|---|---|---|---|
 | 1 | GPT-6 Astra | 0.833 | 0.882 | 87.8% | 7.4 | 345 s | $1.418 |
-| 2 | GPT-6.2 Sol, Ultrafast tier | 0.759 | 0.899 | 68.9% | 6.9 | 71 s | $1.044 |
-| 3 | GPT-6.2 Astra, Ultrafast tier | 0.752 | 0.896 | 73.1% | 6.3 | 55 s | $2.931 |
-| 4 | GPT-6.1 Sol | 0.742 | 0.652 | 89.1% | 6.8 | 284 s | $0.266 |
-| 5 | Gemini 4 Hydrogen, 0-1000 grid | 0.728 | 0.862 | 89.3% | 4.3 | 120 s | $0.255 |
-| 6 | Gemini 4 Argon, 0-1000 grid | 0.723 | 0.652 | 92.1% | 6.0 | 120 s | $0.183 |
-| 7 | Claude Fable 5.1 | 0.627 | 0.773 | 85.8% | 2.5 | 256 s | $1.509 |
-| 8 | Claude Fable 5.1, image at 1568 px | 0.606 | 0.706 | 79.8% | 3.1 | 252 s | $1.384 |
-| 9 | Gemini 4 Carbon, 0-1000 grid | 0.602 | 0.816 | 83.7% | 1.5 | 565 s | $0.505 |
-| 10 | Muse Wonder | 0.592 | 0.788 | 76.7% | 2.2 | 115 s | - |
-| 11 | Muse Wonder Full | 0.586 | 0.748 | 82.4% | 1.9 | 282 s | - |
-| 12 | Gemini 4 Argon, pixel prompt (held off frontier) | 0.573 | 0.361 | 95.1% | 4.1 | 178 s | $0.237 |
-| 13 | Claude Opus 5.5, image at 1568 px | 0.565 | 0.838 | 39.8% | 4.6 | 112 s | $0.331 |
-| 14 | GPT-6 Sol | 0.486 | 0.570 | 58.0% | 3.1 | 96 s | $0.227 |
-| 15 | Gemini 4 Argon, pixel prompt, ultra image (held off frontier) | 0.468 | 0.409 | 76.1% | 2.3 | 131 s | $0.240 |
-| 16 | Claude Opus 5.5 | 0.462 | 0.695 | 42.1% | 2.7 | 113 s | $0.368 |
-| 17 | Claude Sonnet 5.5, image at 1568 px | 0.297 | 0.556 | 18.2% | 1.5 | 16 s | $0.046 |
-| 18 | Claude Haiku 5.5, image at 1568 px | 0.293 | 0.617 | 13.0% | 1.3 | 30 s | $0.005 |
-| 19 | Claude Sonnet 5.5 | 0.268 | 0.569 | 16.1% | 0.8 | 17 s | $0.054 |
-| 20 | Claude Haiku 5.5 | 0.237 | 0.570 | 8.6% | 0.5 | 28 s | $0.005 |
-| 21 | GPT-6 Luna | 0.208 | 0.433 | 6.6% | 1.2 | 65 s | $0.008 |
+| 2 | Gemini 4 Neon, 0-1000 grid | 0.801 | 0.880 | 90.2% | 6.2 | 277 s | $0.658 |
+| 3 | GPT-6.2 Sol, Ultrafast tier | 0.759 | 0.899 | 68.9% | 6.9 | 71 s | $1.044 |
+| 4 | GPT-6.2 Astra, Ultrafast tier | 0.752 | 0.896 | 73.1% | 6.3 | 55 s | $2.931 |
+| 5 | GPT-6.1 Sol | 0.742 | 0.652 | 89.1% | 6.8 | 284 s | $0.266 |
+| 6 | Gemini 4 Hydrogen, 0-1000 grid | 0.728 | 0.862 | 89.3% | 4.3 | 120 s | $0.255 |
+| 7 | Gemini 4 Argon, 0-1000 grid | 0.723 | 0.652 | 92.1% | 6.0 | 120 s | $0.183 |
+| 8 | Claude Fable 5.1 | 0.627 | 0.773 | 85.8% | 2.5 | 256 s | $1.509 |
+| 9 | Claude Fable 5.1, image at 1568 px | 0.606 | 0.706 | 79.8% | 3.1 | 252 s | $1.384 |
+| 10 | Gemini 4 Carbon, 0-1000 grid | 0.602 | 0.816 | 83.7% | 1.5 | 565 s | $0.505 |
+| 11 | Muse Wonder | 0.592 | 0.788 | 76.7% | 2.2 | 115 s | - |
+| 12 | Muse Wonder Full | 0.586 | 0.748 | 82.4% | 1.9 | 282 s | - |
+| 13 | Gemini 4 Argon, pixel prompt (held off frontier) | 0.573 | 0.361 | 95.1% | 4.1 | 178 s | $0.237 |
+| 14 | Claude Opus 5.5, image at 1568 px | 0.565 | 0.838 | 39.8% | 4.6 | 112 s | $0.331 |
+| 15 | GPT-6 Sol | 0.486 | 0.570 | 58.0% | 3.1 | 96 s | $0.227 |
+| 16 | Gemini 4 Argon, pixel prompt, ultra image (held off frontier) | 0.468 | 0.409 | 76.1% | 2.3 | 131 s | $0.240 |
+| 17 | Claude Opus 5.5 | 0.462 | 0.695 | 42.1% | 2.7 | 113 s | $0.368 |
+| 18 | Claude Sonnet 5.5, image at 1568 px | 0.297 | 0.556 | 18.2% | 1.5 | 16 s | $0.046 |
+| 19 | Claude Haiku 5.5, image at 1568 px | 0.293 | 0.617 | 13.0% | 1.3 | 30 s | $0.005 |
+| 20 | Claude Sonnet 5.5 | 0.268 | 0.569 | 16.1% | 0.8 | 17 s | $0.054 |
+| 21 | Claude Haiku 5.5 | 0.237 | 0.570 | 8.6% | 0.5 | 28 s | $0.005 |
+| 22 | GPT-6 Luna | 0.208 | 0.433 | 6.6% | 1.2 | 65 s | $0.008 |
 
 ![frontier-composite-cost.svg](frontier-composite-cost.svg)
 
-Frontier: Claude Haiku 5.5, image at 1568 px → Claude Sonnet 5.5, image at 1568 px → Gemini 4 Argon, 0-1000 grid → Gemini 4 Hydrogen, 0-1000 grid → GPT-6.1 Sol → GPT-6.2 Sol, Ultrafast tier → GPT-6 Astra
+Frontier: Claude Haiku 5.5, image at 1568 px → Claude Sonnet 5.5, image at 1568 px → Gemini 4 Argon, 0-1000 grid → Gemini 4 Hydrogen, 0-1000 grid → GPT-6.1 Sol → Gemini 4 Neon, 0-1000 grid → GPT-6 Astra
 
 ## Paved-area takeoff
 
@@ -45,6 +46,8 @@ Frontier: Claude Haiku 5.5, image at 1568 px → Claude Sonnet 5.5, image at 156
 | GPT-6.2 Astra, Ultrafast tier | vlm_polygon | full_auto | 4 x 3 | 6/12 | 100.0% | 100.0% | 0.896 | 1.6% | 5.7% | 88.6% | 18.3 s | 22.6 s | FAST | $0.637 | - |
 | GPT-6 Astra | vlm_polygon | full_auto | 4 x 3 | 6/12 | 100.0% | 100.0% | 0.882 | 4.9% | 11.7% | 88.8% | 64.6 s | 80.7 s | BATCH | $0.450 | - |
 | Gemini 4 Argon, grid, high thinking, geometry hint + 1 retry | vlm_polygon | full_auto | 4 x 3 | 8/12 | 100.0% | 100.0% | 0.881 | 3.6% | 7.3% | 59.5% | 124.9 s | 210.8 s | BATCH | $0.127 | - |
+| Gemini 4 Neon, 0-1000 grid | vlm_polygon | full_auto | 4 x 3 | 7/12 | 100.0% | 100.0% | 0.880 | 3.5% | 17.8% | 62.3% | 85.5 s | 122.2 s | BATCH | $0.190 | - |
+| Gemini 4 Neon, grid, 1 retry | vlm_polygon | full_auto | 4 x 3 | 7/12 | 100.0% | 100.0% | 0.878 | 4.1% | 18.0% | 77.4% | 75.6 s | 113.8 s | BATCH | $0.185 | - |
 | Gemini 4 Argon, grid, high thinking | vlm_polygon | full_auto | 4 x 3 | 8/12 | 100.0% | 100.0% | 0.877 | 2.9% | 15.3% | 64.6% | 112.4 s | 215.8 s | BATCH | $0.131 | - |
 | Gemini 4 Hydrogen, 0-1000 grid | vlm_polygon | full_auto | 4 x 3 | 4/12 | 100.0% | 100.0% | 0.862 | 6.2% | 11.7% | 48.2% | 40.9 s | 54.9 s | FAST | $0.070 | - |
 | Gemini 4 Hydrogen, grid, 1 retry | vlm_polygon | full_auto | 4 x 3 | 3/12 | 100.0% | 100.0% | 0.855 | 5.0% | 10.4% | 49.0% | 43.7 s | 54.0 s | FAST | $0.078 | - |
@@ -75,6 +78,8 @@ Notes:
 - **GPT-6.2 Astra, Ultrafast tier**: All three jobs on the Ultrafast tier (service_tier ultrafast; requested and returned tier recorded per call); same prompt and reasoning effort as GPT-6 Astra. Cost at the list price $48/$240 per MTok ($2.40 cached input), six times the standard $8/$40. OpenAI shows a promotional Ultrafast price of $24/$120 through 2027-02-28, which halves the cost shown (OpenAI pricing page, 2026-11-17). Run 2026-11-17.
 - **GPT-6 Astra**: Reference system for the judged task. Priority tier; reasoning effort medium (low for stall counts).
 - **Gemini 4 Argon, grid, high thinking, geometry hint + 1 retry**: The two strongest outline levers together.
+- **Gemini 4 Neon, 0-1000 grid**: Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.
+- **Gemini 4 Neon, grid, 1 retry**: Grid prompt; re-asked once when the draft failed validation (cost and time of both attempts counted). Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.
 - **Gemini 4 Argon, grid, high thinking**: Grid prompt, thinkingLevel high.
 - **Gemini 4 Hydrogen, 0-1000 grid**: Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.
 - **Gemini 4 Hydrogen, grid, 1 retry**: Grid prompt; re-asked once when the draft failed validation (cost and time of both attempts counted). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.
@@ -105,8 +110,10 @@ Notes:
 | Gemini 4 Argon, pixel prompt | full_auto | 5 x 3 | 13/15 | 4.9% | 3.6% | 12.5% | 80.0% | - | - | - | 25.7 s | 57.7 s | FAST | $0.049 |
 | Gemini 4 Argon, grid, 1 retry | full_auto | 5 x 3 | 11/15 | 7.4% | 6.4% | 19.6% | 100.0% | - | - | - | 29.8 s | 63.7 s | BATCH | $0.052 |
 | Gemini 4 Argon, 0-1000 grid | full_auto | 5 x 3 | 11/15 | 7.9% | 7.7% | 19.6% | 86.7% | - | - | - | 25.8 s | 49.7 s | FAST | $0.043 |
+| Gemini 4 Neon, 0-1000 grid | full_auto | 5 x 3 | 9/15 | 9.8% | 7.7% | 20.5% | 100.0% | - | - | - | 42.4 s | 71.3 s | BATCH | $0.122 |
 | Gemini 4 Hydrogen, 0-1000 grid | full_auto | 5 x 3 | 8/15 | 10.7% | 7.7% | 20.5% | 100.0% | - | - | - | 21.0 s | 37.6 s | FAST | $0.052 |
 | GPT-6.1 Sol | full_auto | 5 x 3 | 5/15 | 10.9% | 11.5% | 18.8% | 100.0% | - | - | - | 38.7 s | 47.1 s | FAST | $0.069 |
+| Gemini 4 Neon, grid, 1 retry | full_auto | 5 x 3 | 7/15 | 11.0% | 13.7% | 21.4% | 100.0% | - | - | - | 46.1 s | 59.0 s | FAST | $0.115 |
 | Gemini 4 Hydrogen, grid, 1 retry | full_auto | 5 x 3 | 7/15 | 11.2% | 10.5% | 22.3% | 100.0% | - | - | - | 25.2 s | 32.1 s | FAST | $0.050 |
 | Gemini 4 Argon, grid, high thinking | full_auto | 13 | 8/13 | 12.0% | 8.2% | 17.9% | 100.0% | - | - | - | 154.7 s | 189.5 s | BATCH | $0.165 |
 | GPT-6 Astra | full_auto | 5 x 3 | 6/15 | 12.2% | 15.1% | 20.5% | 100.0% | - | - | - | 37.7 s | 52.6 s | FAST | $0.396 |
@@ -115,6 +122,7 @@ Notes:
 | Gemini 4 Carbon, grid, agentic | full_auto | 5 x 3 | 6/15 | 12.8% | 12.3% | 26.6% | 100.0% | - | - | - | 152.5 s | 328.9 s | BATCH | $0.191 |
 | Claude Fable 5.1 | full_auto | 5 x 3 | 7/15 | 14.2% | 10.3% | 32.9% | 100.0% | - | - | - | 54.0 s | 89.4 s | BATCH | $0.364 |
 | Gemini 4 Argon, grid, ultra image | full_auto | 5 x 3 | 7/15 | 15.3% | 11.0% | 45.6% | 86.7% | - | - | - | 31.3 s | 73.6 s | BATCH | $0.052 |
+| Gemini 4 Neon, grid, agentic | full_auto | 5 x 3 | 6/15 | 15.9% | 13.7% | 33.1% | 100.0% | - | - | - | 101.7 s | 178.7 s | BATCH | $0.368 |
 | Gemini 4 Carbon, 0-1000 grid | full_auto | 5 x 3 | 10/15 | 16.3% | 9.6% | 41.1% | 80.0% | - | - | - | 32.8 s | 55.2 s | FAST | $0.032 |
 | Muse Wonder Full | full_auto | 14 | 6/14 | 17.6% | 14.4% | 49.6% | 100.0% | - | - | - | 85.4 s | 145.2 s | BATCH | - |
 | Claude Fable 5.1, image at 1568 px | full_auto | 5 x 3 | 5/15 | 20.2% | 21.4% | 31.5% | 100.0% | - | - | - | 46.3 s | 101.7 s | BATCH | $0.347 |
@@ -138,8 +146,10 @@ Notes:
 - **Gemini 4 Argon, pixel prompt**: Pixel-coordinate prompt; often answers one or both axes on its 0-1000 grid. Not on the frontier: its stall centers are often in the wrong place (mixed coordinate frames, checked on overlays); this set has no per-stall gold markers, so count-only scoring cannot see it.
 - **Gemini 4 Argon, grid, 1 retry**: Grid prompt; re-asked once when the draft failed validation (cost and time of both attempts counted).
 - **Gemini 4 Argon, 0-1000 grid**: Prompt built for a 1000x1000 frame; answer scaled to pixels.
+- **Gemini 4 Neon, 0-1000 grid**: Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.
 - **Gemini 4 Hydrogen, 0-1000 grid**: Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.
 - **GPT-6.1 Sol**: Same prompt and settings as GPT-6 Astra. Price $2/$10 per MTok from secondary sources.
+- **Gemini 4 Neon, grid, 1 retry**: Grid prompt; re-asked once when the draft failed validation (cost and time of both attempts counted). Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.
 - **Gemini 4 Hydrogen, grid, 1 retry**: Grid prompt; re-asked once when the draft failed validation (cost and time of both attempts counted). Price $1.50/$7.50 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-13). Run 2026-11-12.
 - **Gemini 4 Argon, grid, high thinking**: Grid prompt, thinkingLevel high.
 - **GPT-6 Astra**: Reference system for the judged task. Priority tier; reasoning effort medium (low for stall counts).
@@ -148,6 +158,7 @@ Notes:
 - **Gemini 4 Carbon, grid, agentic**: Grid prompt in a function-calling loop of up to 8 turns with three tools: zoom (a crop of the image), check (the application validator, never the gold) and submit. Cost and time count every turn. Cost at the introductory price $2/$10 per MTok, valid through 2026-11-30; from 2026-12-01 it is $4/$20, which doubles the cost shown (Google AI Studio pricing page, 2026-11-13). Run 2026-11-11.
 - **Claude Fable 5.1**: Full image resolution (Claude reads up to 2576 px and answers in real pixels); structured output; effort medium, low for stalls.
 - **Gemini 4 Argon, grid, ultra image**: Grid prompt, per-part ultra_high media resolution.
+- **Gemini 4 Neon, grid, agentic**: Grid prompt in a function-calling loop of up to 8 turns with three tools: zoom (a crop of the image), check (the application validator, never the gold) and submit. Cost and time count every turn. Price $3/$15 per MTok, thinking billed as output (Google AI Studio pricing page, 2026-11-18). Run 2026-11-18.
 - **Gemini 4 Carbon, 0-1000 grid**: Same request as the Gemini 4 Argon 0-1000 grid row (prompt built for a 1000x1000 frame; answer scaled to pixels). Stops at 32,768 output tokens, answer and thinking together, so some answers were cut off. Cost at the introductory price $2/$10 per MTok, valid through 2026-11-30; from 2026-12-01 it is $4/$20, which doubles the cost shown (Google AI Studio pricing page, 2026-11-13). Run 2026-11-11.
 - **Muse Wonder Full**: Through the muse exec CLI (contributor mode off) with --output-schema; image resized to 1568 px. Subscription-only model: no per-call cost.
 - **Claude Fable 5.1, image at 1568 px**: Image downscaled to 1568 px long edge (answer scaled back). Kept to show the cost of lower resolution; Claude often declined to count stalls it called too faint.
@@ -188,7 +199,7 @@ Frontier: Claude Haiku 5.5, image at 1568 px → Claude Sonnet 5.5 → Claude So
 
 ## Stripe lines (judged by claude-opus-5-5, no gold)
 
-No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's. Rows added later (Gemini 4 Carbon 2026-11-11, Gemini 4 Hydrogen 2026-11-12, GPT-6.2 Sol and GPT-6.2 Astra 2026-11-17): 126 more judgments by the same judge against the same GPT-6 Astra tries, $6.96; 0 refused; order agreement 79% over 63 pairs.
+No hand-traced stripe gold exists. Claude Opus 5.5 (effort high) saw the aerial photo and two blinded striping overlays of the same lot (cyan seen paint, magenta inferred paint), scored each for usability in a restripe quote and tallied its faults, and picked the one a contractor should trust. Every challenger try was paired with the GPT-6 Astra try of the same lot and number, in both A/B orders. 396 judgments, $21.71 of judge cost; 0 refused. Cost and latency columns are the striping system's own, not the judge's. Rows added later (Gemini 4 Carbon 2026-11-11, Gemini 4 Hydrogen 2026-11-12, GPT-6.2 Sol and GPT-6.2 Astra 2026-11-17, Gemini 4 Neon 2026-11-18): 150 more judgments by the same judge against the same GPT-6 Astra tries, $8.36; 0 refused; order agreement 75% over 75 pairs.
 
 Calibration: the reference against its own second try won 67% (a fair judge is near 50%); the judge gave the same verdict in both A/B orders on 95% of 198 pairs.
 
@@ -200,6 +211,7 @@ Calibration: the reference against its own second try won 67% (a fair judge is n
 | GPT-6.1 Sol | 6 | 24 | 35% | 6.8 | 0.5 | 0% | 0% | 185.4 s | $0.109 |
 | GPT-6.2 Astra, Fast tier | 6 | 24 | 56% | 6.7 | 0.6 | 0% | 0% | 48.7 s | $0.602 |
 | GPT-6.2 Astra, Ultrafast tier | 6 | 24 | 25% | 6.3 | 0.8 | 0% | 0% | 28.7 s | $1.774 |
+| Gemini 4 Neon, 0-1000 grid | 6 | 24 | 23% | 6.2 | 0.8 | 0% | 0% | 149.6 s | $0.346 |
 | Gemini 4 Argon, 0-1000 grid | 6 | 24 | 23% | 6.0 | 0.4 | 17% | 25% | 65.6 s | $0.097 |
 | Gemini 4 Argon, grid, hatch hint | 6 | 24 | 31% | 5.8 | 0.2 | 12% | 10% | 78.5 s | $0.096 |
 | Claude Opus 5.5, image at 1568 px | 6 | 24 | 0% | 4.6 | 2.0 | 12% | 60% | 84.8 s | $0.236 |
