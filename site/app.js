@@ -207,7 +207,8 @@
     const hits = (b) => obstacles.filter(over(b)).length + labels.filter(over(b)).length;
     const dots = rows.map((r) => [sx(r[key]), sy(Math.max(yMin, r.accuracy))]);
     const fs = narrow ? 11 : 13;
-    [...rows].sort((a, b) => b.accuracy - a.accuracy).forEach((r) => {
+    // Frontier points are labeled first (they are the ones the chart is about), then the rest; by score within each.
+    [...rows].sort((a, b) => Number(on.has(b.system)) - Number(on.has(a.system)) || b.accuracy - a.accuracy).forEach((r) => {
       const x = sx(r[key]), y = sy(Math.max(yMin, r.accuracy));
       const text = narrow ? modelOf(r.system).replace(/^Claude |^Gemini 4 /, "") : modelOf(r.system);
       const w = text.length * fs * 0.56, h = fs + 2;
@@ -220,8 +221,9 @@
       // rendered text runs a little wider than the estimate), over another point, nearer another point than its
       // own, or more than 14 px from its own point. Touching the line or a point's margin counts 1, as in cost().
       const gap = ([l, b], [px, py]) => Math.hypot(Math.max(l - px, 0, px - l - w), Math.max(b - h + 3 - py, 0, py - b - 3));
+      const onLabel = ([l, b]) => labels.filter(over([l - 3, l + w * 1.1 + 3, b - h + 1, b + 5])).length;
       const wcost = ([l, b]) => obstacles.filter(over([l, l + w, b - h + 3, b + 3])).length +
-        10 * labels.filter(over([l - 3, l + w * 1.1 + 3, b - h + 1, b + 5])).length +
+        10 * onLabel([l, b]) +
         10 * dots.filter((d) => (d[0] !== x || d[1] !== y) && (gap([l, b], d) < gap([l, b], [x, y]) || gap([l, b], d) < 7)).length +
         (gap([l, b], [x, y]) > 14 ? 10 : 0);
       let spots = near.filter(inside);
@@ -229,7 +231,8 @@
       // The nearby spot is kept when it is clear. Otherwise (or when no nearby spot is inside the plot, e.g. a
       // point at the right edge) try spots further out and nearby spots slid back inside the plot; take the
       // clearest, then the closest; and leave the point unlabeled when even that one would hide or misname
-      // something (its tooltip and the all-setups table still name it).
+      // something (its tooltip and the all-setups table still name it). A frontier point keeps its label unless
+      // it would sit on another label.
       if (!best || cost(best) > 0 || wcost(best) >= 10) {
         const far = [[x - w / 2, y - 26], [x - w / 2, y + 33], [x + 13, y + 17], [x - 13 - w, y + 17],
           [x + 13, y - 9], [x - 13 - w, y - 9], [x - w - 4, y - 24], [x + 4, y - 24], [x - w - 4, y + 31], [x + 4, y + 31]];
@@ -239,7 +242,7 @@
         if (best) spots.push(best);
         if (!spots.length) return;
         best = spots.reduce((a, s) => (wcost(s) < wcost(a) || (wcost(s) === wcost(a) && dist(s) < dist(a)) ? s : a));
-        if (wcost(best) >= 10) return;
+        if (onLabel(best) > 0 || (wcost(best) >= 10 && !on.has(r.system))) return;
       }
       const [l, b] = best;
       labels.push([l, l + w, b - h + 3, b + 3]);
